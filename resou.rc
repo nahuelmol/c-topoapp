@@ -23,6 +23,17 @@ BEGIN
                     IDC_STATIC,16,18,144,33
 END
 
+IDD_CALCULATOR DIALOG DISCARDABLE 0, 0, 147, 67
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Shell Dlg"
+BEGIN
+  ICON             IDI_MYICON,IDC_STATIC,7,7,20,20
+  LTEXT            "Win32 Example Application",IDC_STATIC,34,7,89,8
+  LTEXT            "©2017 Transmission Zero",IDC_STATIC,34,17,86,8
+  DEFPUSHBUTTON    "OK",IDOK,90,46,50,14,WS_GROUP
+END
+
 IDR_MYMENU MENU
 BEGIN
 
@@ -75,8 +86,25 @@ BEGIN
     {
         POPUP "&Transform Data" 
         {
-            MENUITEM "geographic to geodesic", 86
-            MENUITEM "geodesic to geographic", 87
+            MENUITEM "&Calculator", IDD_CALCULATOR
+            MENUITEM "&geographic to geodesic", 80
+            MENUITEM "&geodesic to geographic", 81
+        }
+
+        POPUP "&Nivelador"
+        {
+            POPUP "&Nivelacion Geometrica"
+            {
+                MENUITEM "&Simple",     82
+                MENUITEM "&Compuesta",  83
+                MENUITEM "&Inversa",    84
+                MENUITEM "&Reciproca",  85
+            }
+            POPUP "&Nivelacion Hipergeometrica" {
+                MENUITEM "&Taquimetrica", 86
+                MENUITEM "&ConCorteMira", 87
+            }
+
         }
         
         MENUITEM "&Compile options", 88
@@ -100,3 +128,8 @@ BEGIN
 END
 
 IDI_MYICON ICON "menu_one.ico"
+
+IDR_ACCELERATOR ACCELERATORS
+BEGIN
+  "A",             ID_HELP_ABOUT,      VIRTKEY, ALT, NOINVERT
+END

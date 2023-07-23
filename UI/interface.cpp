@@ -82,6 +82,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 
             switch(LOWORD(wParam)){
 
+                case 93:
+                {
+                    
+                }
+
                 case 94:
                 {
                     cout << "Here";
@@ -159,6 +164,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine, int nCmdShow){
     WNDCLASSEX wc;
     HWND hwnd;
+    HACCEL hAccelerators;
     MSG Msg;
 
     wc.cbSize        = sizeof(WNDCLASSEX);
@@ -196,12 +202,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
         return 0;
     }
 
+    hAccelerators = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDR_ACCELERATOR));
+
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
     while(GetMessage(&Msg, NULL, 0, 0) > 0){
-        TranslateMessage(&Msg);
-        DispatchMessage(&Msg);
+        if (!TranslateAccelerator(hwnd, hAccelerators, &Msg))
+        {
+            TranslateMessage(&Msg);
+            DispatchMessage(&Msg);
+        }
     }
 
     return Msg.wParam;
