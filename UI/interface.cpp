@@ -1,60 +1,5 @@
 const char g_szClassName[] = "myWindowClass";
 
-LRESULT CALLBACK ChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    using std::cout;
-
-    switch(msg){
-        case WM_CREATE:
-            cout << "child created\n";
-        case WM_PAINT:{
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-            EndPaint(hwnd, &ps);
-            return 0;
-        }
-        default:
-            return DefWindowProc(hwnd, msg, wParam, lParam);
-    }
-};
-
-void RegisterChildWindowClass(HINSTANCE hInstance){
-    WNDCLASSEX wcex;
-
-    ZeroMemory(&wcex, sizeof(wcex));
-
-    wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.lpfnWndProc = ChildWndProc;
-    wcex.hInstance = hInstance;
-    wcex.lpszClassName = "ChildWindowClass";
-
-    RegisterClassEx(&wcex);
-}
-
-HWND CreateChildWindow(HWND hWndParent, HINSTANCE hInstance){
-
-    RegisterChildWindowClass(hInstance);
-
-    HWND hWndChild = CreateWindowEx(
-        0,
-        "ChildWindowClass",
-        "Ventana Hija",
-        WS_CHILD | WS_VISIBLE,
-        CW_USEDEFAULT,CW_USEDEFAULT,400,300,
-        hWndParent,
-        NULL,
-        hInstance,
-        NULL);
-
-    if(hWndChild == NULL){
-        MessageBox(NULL, "Window Creation Failed!", "Error!",
-            MB_ICONEXCLAMATION | MB_OK);
-        return 0;
-    }
-
-    return hWndChild;
-}
-
-
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
     PAINTSTRUCT ps;
     HDC hdc;
@@ -90,61 +35,69 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
                 case 94:
                 {
                     cout << "Here";
-
-                    int nCmdShow;
-                    HINSTANCE hInstance;
-                    
-                    HWND anotherchild = CreateChildWindow(hwnd, hInstance);
-
-                    ShowWindow(anotherchild, nCmdShow);
-                    UpdateWindow(anotherchild);
-
                 }
                 break;
 
-                case IDR_MYMENU:
+                case IDR_MENU1:
                 {   
-                    cout << "getting into the menu\n";
+                    cout << "\ngetting into the menu\n";
                 }
                 break;
 
-                case ID_HELP_ABOUT:
+                case IDM_FILE1:
                 {
-                    int ret = DialogBox(GetModuleHandle(NULL), 
-                        MAKEINTRESOURCE(IDD_ABOUT), hwnd, AboutDlgProc);
-                    if(ret == IDOK){
+                    cout <<"\nFile";
+                }
+                break;
+
+                case IDM_PROJECT1:
+                {
+                    cout <<"\nProject";
+                }
+                break;
+
+                case ID_CONVERTER:
+
+                {
+
+                    int ret_co = DialogBox(GetModuleHandle(NULL), 
+                        MAKEINTRESOURCE(IDD_DIALOG_CONVERTER), hwnd, CompoDlgProc);
+                    if(ret_co == IDOK){
                         MessageBox(hwnd, "OK... getting out", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                     }
-                    else if(ret == IDCANCEL){
+                    else if(ret_co == IDCANCEL){
                         MessageBox(hwnd, "Cancelling.", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                     }
-                    else if(ret == -1){
+                    else if(ret_co == -1){
                         MessageBox(hwnd, "Dialog failed!", "Error",
                             MB_OK | MB_ICONINFORMATION);
+                    }
+                    else if(ret_co == IDADD){
+                        cout << "You have clicked on the Add button";
+                        MessageBox(hwnd, "Adding", "Notice", MB_OK | MB_ICONINFORMATION);
                     }
                 }
-                break;
 
-                case ID_COMPO_ABOUT:
-                {
-                    int ret = DialogBox(GetModuleHandle(NULL), 
-                        MAKEINTRESOURCE(IDD_COMPONENTS), hwnd, CompoDlgProc);
-                    if(ret == IDOK){
-                        MessageBox(hwnd, "Dialog exited with IDOK.", "Notice",
+                case ID_CALCULATOR:
+
+                    int ret_ca = DialogBox(GetModuleHandle(NULL), 
+                        MAKEINTRESOURCE(IDD_DIALOG_CALCULATOR), hwnd, AboutDlgProc);
+                    if(ret_ca == IDOK){
+                        MessageBox(hwnd, "OK... getting out", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                     }
-                    else if(ret == IDCANCEL){
-                        MessageBox(hwnd, "Dialog exited with IDCANCEL.", "Notice",
+                    else if(ret_ca == IDCANCEL){
+                        MessageBox(hwnd, "Cancelling.", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                     }
-                    else if(ret == -1){
+                    else if(ret_ca == -1){
                         MessageBox(hwnd, "Dialog failed!", "Error",
                             MB_OK | MB_ICONINFORMATION);
                     }
-                }    
-                break;
+                    
+                
             }
         break;
 
@@ -178,7 +131,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     wc.lpszMenuName  = NULL;
     wc.lpszClassName = g_szClassName;
 
-    wc.lpszMenuName  = MAKEINTRESOURCE(IDR_MYMENU);
+    wc.lpszMenuName  = MAKEINTRESOURCE(IDR_MENU1);
     wc.hIcon  = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_MYICON));
     wc.hIconSm  = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_MYICON), IMAGE_ICON, 16, 16, 0);
 
@@ -192,7 +145,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
         WS_EX_CLIENTEDGE,
         g_szClassName,
         "Topography project",
-        WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL,
+        WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 480, 240,
         NULL, NULL, hInstance, NULL);
 
@@ -202,17 +155,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
         return 0;
     }
 
-    hAccelerators = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDR_ACCELERATOR));
-
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
     while(GetMessage(&Msg, NULL, 0, 0) > 0){
-        if (!TranslateAccelerator(hwnd, hAccelerators, &Msg))
-        {
-            TranslateMessage(&Msg);
-            DispatchMessage(&Msg);
-        }
+        TranslateMessage(&Msg);
+        DispatchMessage(&Msg);
     }
 
     return Msg.wParam;
