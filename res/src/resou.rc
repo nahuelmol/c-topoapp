@@ -10,9 +10,11 @@ IDR_MENU1 MENU
     MENUITEM "Project", IDM_PROJECT1
     POPUP "Tools"
     {
-        MENUITEM "Calculator", ID_CALCULATOR
-        MENUITEM "Converter", ID_CONVERTER
+        MENUITEM "Calculator", IDD_DIALOG_CALCULATOR
+        MENUITEM "Converter", IDD_DIALOG_CONVERTER
         MENUITEM SEPARATOR
+        MENUITEM "Notas", IDD_DIALOG_NOTES
+
     }
 }
 
@@ -23,18 +25,18 @@ CAPTION "Dialog"
 FONT 8, "Ms Shell Dlg"
 {
     GROUPBOX        "INPUT", 0, 1, 44, 165, 114, 0, WS_EX_LEFT
-    LTEXT           "Date type", 0, 10, 60, 32, 9, SS_LEFT, WS_EX_LEFT, ID_DT
-    COMBOBOX        ID_OPTION_DT, 65, 55, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT
+    LTEXT           "Date type", 0, 10, 60, 32, 9, SS_LEFT, WS_EX_LEFT
+    COMBOBOX        ID_OPTION_DT, 65, 55, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT 
     AUTOCHECKBOX    "Simplified", ID_CHS, 195, 75, 45, 8, 0, WS_EX_LEFT
     GROUPBOX        "OUTPUT", 0, 185, 45, 130, 112, 0, WS_EX_LEFT
     AUTOCHECKBOX    ".txt file", ID_CHO, 196, 61, 36, 8, 0, WS_EX_LEFT
     LTEXT           "Please select the filters", 0, 69, 14, 73, 9, SS_LEFT, WS_EX_LEFT
-    PUSHBUTTON      "Add\r\n", IDADD, 215, 165, 35, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Add", IDADD, 215, 165, 35, 14, 0, WS_EX_LEFT
     CONTROL         "", IDBAR, PROGRESS_CLASS, 0, 10, 165, 195, 15, WS_EX_LEFT
     PUSHBUTTON      "Cancel", IDCANCEL, 280, 197, 50, 14, 0, WS_EX_LEFT
     DEFPUSHBUTTON   "OK", IDOK, 280, 180, 50, 14, 0, WS_EX_LEFT
     COMBOBOX        ID_OPTION_NT, 65, 80, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT
-    LTEXT           "Numerical type", 0, 10, 85, 48, 9, SS_LEFT, WS_EX_LEFT, ID_NT
+    LTEXT           "Numerical type", 0, 10, 85, 48, 9, SS_LEFT, WS_EX_LEFT
 }
 
 
@@ -75,4 +77,19 @@ FONT 8, "Ms Shell Dlg"
     PUSHBUTTON      "ln", 0, 40, 150, 20, 14, 0, WS_EX_LEFT
     PUSHBUTTON      "e", 0, 65, 150, 20, 14, 0, WS_EX_LEFT
     PUSHBUTTON      ")", 0, 90, 150, 10, 14, 0, WS_EX_LEFT
+}
+
+
+
+
+LANGUAGE 0, SUBLANG_NEUTRAL
+IDD_DIALOG_NOTES DIALOG 0, 0, 299, 208
+STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VISIBLE | WS_POPUP | WS_SYSMENU
+CAPTION "Notas de Topografia"
+FONT 8, "Ms Shell Dlg"
+{
+    PUSHBUTTON      "Borrar pizarra", ID_NOTAS_BORRARPIZARRA, 127, 188, 46, 14
+    EDITTEXT        ID_NOTAS_PIZARRA, 10, 10, 275, 140, ES_AUTOHSCROLL
+    PUSHBUTTON      "Salir del asistente", ID_NOTAS_SALIRASISTENTE, 115, 170, 70, 14
+    DEFPUSHBUTTON   "Save note", ID_NOTAS_SAVE, 125, 153, 50, 14
 }

@@ -18,17 +18,13 @@
 #define ID_CH2				2006
 #define ID_CH3				2007
 
-#define ID_CHS				2008
-#define ID_CHO				2009
-#define ID_DT 				2010
-#define ID_OPTION_DT		2011
-#define ID_NT 				2012
-#define ID_OPTION_NT		2013
+
 
 
 #define IDD_DIALOG_CONVERTER			2015
 #define IDD_DIALOG_CALCULATOR			2016
-#define IDD_DIALOG3			2017
+#define IDD_DIALOG_NOTES				2017
+
 #define IDD_DIALOG4			2018
 #define IDD_DIALOG5			2019
 
@@ -79,3 +75,18 @@
 #define ID_DECSIS 			5001
 #define	ID_GEODEC 			5002
 #define ID_GEOGRAPH 		5003
+
+#define ID_CHS				5008
+#define ID_CHO				5009
+#define ID_OPTION_DT		5011
+#define ID_OPTION_NT		5013
+
+
+//notas
+
+#define	ID_NOTAS_PIZARRA	6001 
+#define ID_NOTAS_SALIRASISTENTE		6002
+#define ID_NOTAS_SAVE				6003
+#define	ID_NOTAS_BORRARPIZARRA		6004
+
+

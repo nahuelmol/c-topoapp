@@ -1,101 +1,130 @@
 const char g_szClassName[] = "myWindowClass";
 
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
     PAINTSTRUCT ps;
     HDC hdc;
     TCHAR greeting[] = _T("Hello, Windows Desktop!");
 
     using std::cout;
+    using std::endl;
 
     switch(msg){
         case WM_CREATE:
-            cout << "funciona WM_CREATE\n";
+            {
+                const char WC_COMBOBOX[] = "COMBOBOX"; 
+                const char box_classname[] = "boxclassname";
+
+                cout << "funciona WM_CREATE\n";
+
+                //HWND hComboBox = CreateWindow(WC_COMBOBOX, box_classname,
+                //        CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
+                //        10,10,150,200, hwnd, (HMENU)ID_OPTION_DT, NULL, NULL);
+
+                //InitializeComboBox(hComboBox);
+                break;  
+            }
+            
+
         case WM_LBUTTONDOWN:
             cout << "Get out!!\n";
-        break;
+            break;
         case WM_RBUTTONDOWN:
             cout << "Get out!!\n";
-        break;
+            break;
         case WM_KEYDOWN:
             cout << "Get out!!\n";
-        break; 
+            break; 
         case WM_KEYUP:
             cout << "Get out!!\n";
-        break;
+            break;
 
         case WM_COMMAND:
 
             switch(LOWORD(wParam)){
 
-                case 93:
-                {
-                    
-                }
-
                 case 94:
                 {
                     cout << "Here";
+                    break;
                 }
-                break;
+                
 
                 case IDR_MENU1:
                 {   
                     cout << "\ngetting into the menu\n";
+                    break;
                 }
-                break;
-
+                
                 case IDM_FILE1:
                 {
                     cout <<"\nFile";
+                    break;
                 }
-                break;
+                
 
                 case IDM_PROJECT1:
                 {
                     cout <<"\nProject";
+                    break;
                 }
-                break;
+                
 
-                case ID_CONVERTER:
+                case IDD_DIALOG_CONVERTER:
 
-                {
+                    {
 
-                    int ret_co = DialogBox(GetModuleHandle(NULL), 
-                        MAKEINTRESOURCE(IDD_DIALOG_CONVERTER), hwnd, CompoDlgProc);
-                    if(ret_co == IDOK){
-                        MessageBox(hwnd, "OK... getting out", "Notice",
+                        int ret_co = DialogBox(GetModuleHandle(NULL), 
+                            MAKEINTRESOURCE(IDD_DIALOG_CONVERTER), hwnd, ConverterDlgProc);
+                        if(ret_co == IDOK){
+                            MessageBox(hwnd, "OK... getting out", "Notice",
                             MB_OK | MB_ICONINFORMATION);
-                    }
-                    else if(ret_co == IDCANCEL){
-                        MessageBox(hwnd, "Cancelling.", "Notice",
+                        }
+                        else if(ret_co == IDCANCEL){
+                            MessageBox(hwnd, "Cancelling.", "Notice",
                             MB_OK | MB_ICONINFORMATION);
-                    }
-                    else if(ret_co == -1){
-                        MessageBox(hwnd, "Dialog failed!", "Error",
+                        }
+                        else if(ret_co == -1){
+                            MessageBox(hwnd, "Dialog failed!", "Error",
                             MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_co == IDADD){
+                            cout << "You have clicked on the Add button";
+                            MessageBox(hwnd, "Adding", "Notice", MB_OK | MB_ICONINFORMATION);
+                        }
+                        break;
                     }
-                    else if(ret_co == IDADD){
-                        cout << "You have clicked on the Add button";
-                        MessageBox(hwnd, "Adding", "Notice", MB_OK | MB_ICONINFORMATION);
-                    }
-                }
+                    
 
-                case ID_CALCULATOR:
+                case IDD_DIALOG_CALCULATOR:
+                    {
+                        int ret_ca = DialogBox(GetModuleHandle(NULL), 
+                            MAKEINTRESOURCE(IDD_DIALOG_CALCULATOR), hwnd, CalculatorDlgProc);
+                        if(ret_ca == IDOK){
+                            MessageBox(hwnd, "OK... getting out", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_ca == IDCANCEL){
+                            MessageBox(hwnd, "Cancelling.", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_ca == -1){
+                            MessageBox(hwnd, "Dialog failed!", "Error",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
 
-                    int ret_ca = DialogBox(GetModuleHandle(NULL), 
-                        MAKEINTRESOURCE(IDD_DIALOG_CALCULATOR), hwnd, AboutDlgProc);
-                    if(ret_ca == IDOK){
-                        MessageBox(hwnd, "OK... getting out", "Notice",
-                            MB_OK | MB_ICONINFORMATION);
+                        break;   
                     }
-                    else if(ret_ca == IDCANCEL){
-                        MessageBox(hwnd, "Cancelling.", "Notice",
-                            MB_OK | MB_ICONINFORMATION);
+                    
+
+                case IDD_DIALOG_NOTES:
+                    {
+                        int ret_note = DialogBox(GetModuleHandle(NULL), 
+                            MAKEINTRESOURCE(IDD_DIALOG_NOTES), hwnd, NotasDlgProc);
+
+                        break; 
                     }
-                    else if(ret_ca == -1){
-                        MessageBox(hwnd, "Dialog failed!", "Error",
-                            MB_OK | MB_ICONINFORMATION);
-                    }
+
                     
                 
             }
@@ -103,10 +132,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 
         case WM_CLOSE:
             DestroyWindow(hwnd);
-        break;
+            break;
         case WM_DESTROY:
             PostQuitMessage(0);
-        break;
+            break;
         default:
             return DefWindowProc(hwnd, msg, wParam, lParam);
     }
@@ -119,6 +148,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     HWND hwnd;
     HACCEL hAccelerators;
     MSG Msg;
+
 
     wc.cbSize        = sizeof(WNDCLASSEX);
     wc.style         = 0;
@@ -141,6 +171,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
         return 0;
     }
 
+    
     hwnd = CreateWindowEx(
         WS_EX_CLIENTEDGE,
         g_szClassName,
