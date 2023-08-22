@@ -76,11 +76,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 
                         int ret_co = DialogBox(GetModuleHandle(NULL), 
                             MAKEINTRESOURCE(IDD_DIALOG_CONVERTER), hwnd, ConverterDlgProc);
-                        if(ret_co == IDOK){
+                        if(ret_co == ID_CONVERTER_OK){
                             MessageBox(hwnd, "OK... getting out", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                         }
-                        else if(ret_co == IDCANCEL){
+                        else if(ret_co == ID_CONVERTER_CANCEL){
                             MessageBox(hwnd, "Cancelling.", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                         }
@@ -100,11 +100,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
                     {
                         int ret_ca = DialogBox(GetModuleHandle(NULL), 
                             MAKEINTRESOURCE(IDD_DIALOG_CALCULATOR), hwnd, CalculatorDlgProc);
-                        if(ret_ca == IDOK){
+                        if(ret_ca == ID_CALCULATOR_OK){
                             MessageBox(hwnd, "OK... getting out", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                         }
-                        else if(ret_ca == IDCANCEL){
+                        else if(ret_ca == ID_CALCULATOR_CANCEL){
                             MessageBox(hwnd, "Cancelling.", "Notice",
                             MB_OK | MB_ICONINFORMATION);
                         }
@@ -114,6 +114,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
                         }
 
                         break;   
+                    }
+
+                case IDD_DIALOG_NIVELATOR:
+                    {
+                        int ret_NIV = DialogBox(GetModuleHandle(NULL),
+                            MAKEINTRESOURCE(IDD_DIALOG_NIVELATOR), hwnd, NivelatorDlgProc);
+                        
+                        if(ret_NIV == ID_CALCULATOR_OK){
+                            MessageBox(hwnd, "OK... getting out", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_NIV == ID_CALCULATOR_CANCEL){
+                            MessageBox(hwnd, "Nivelator Canceled.", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_NIV == -1){
+                            MessageBox(hwnd, "Nivelator Dialog failed!", "Error",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+
+                        break;
                     }
                     
 

@@ -1,9 +1,53 @@
 
+BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+    
+    using std::endl;
+    using std::cout;
+
+    switch(Message){
+        case WM_CREATE:
+        {   
+            cout << "nivelador dlg created" << endl;
+            break;
+        }
+
+        case WM_COMMAND:
+        {
+            switch(LOWORD(wParam))
+            {
+                case ID_NIVELAR:
+                {
+                    cout << "\nnivelando";
+                    break;
+                }
+                case ID_NOTAS_NIVELADOR:
+                {
+                    cout << "\nnoting";
+                    break;
+                }
+                case ID_NIVELADOR_SALIR:
+                {
+                    cout << "\nSaliendo..";
+                    break;
+                }
+
+                case ID_PERFIL_SAVE:
+                {
+                    cout << "\nSaving perfil";
+                    break;
+                }
+            }
+            break;
+            break;
+        }
+    }
+
+    return TRUE;
+}
+
 void InitializeComboBox(HWND hComboBox, const char que_combo_box[]) {
 
     using std::endl;
-
-    // Agregar opciones al ComboBox
 
     const char opcion[] = "PRUEBABOX";
 
@@ -24,12 +68,6 @@ void InitializeComboBox(HWND hComboBox, const char que_combo_box[]) {
         SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)_T("Opcion 3"));
     }
 
-    
-
-    // Seleccionar la primera opción (opcional)
-    //SendMessage(hComboBox, CB_SETCURSEL, 0, 0);
-
-    
 }
 
 BOOL CALLBACK ConverterDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
@@ -110,18 +148,61 @@ BOOL CALLBACK ConverterDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
     return TRUE;
 }
 
+void send_value(HWND hwnd, int size, char operation[]){
+
+    using std::cout;
+    using std::endl;
+
+    char buffer[size];
+
+    HWND hEditControl = GetDlgItem(hwnd, ID_CALCULATOR_DISPLAY);
+
+    int len = GetWindowText(hEditControl, buffer, sizeof(buffer));
+    buffer[len] = '\0';
+
+    cout << "\n\n";
+    cout << buffer << endl;
+
+    operate(buffer, operation);
+    
+
+}
+
 BOOL CALLBACK CalculatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+    int bsize = 256;
 
     switch(Message)
     {
         case WM_INITDIALOG:
-        {
-            return TRUE;
+        {   
+            cout << "\nInitializing calculator";
+            break;
         }
 
         case WM_COMMAND:
-        {
-            return TRUE;
+        {   
+            case ID_SUM:
+            {
+                char operation[] = "+";
+
+                send_value(hwnd, bsize, operation);
+
+            }
+            case ID_REST:
+            {
+                char operation[] = "-";
+
+                send_value(hwnd, bsize, operation);
+            }
+            case ID_DIV:
+            {
+                char operation[] = ":";
+            }
+            case ID_MULT:
+            {
+                char operation[] = "*";
+            }
+            break;
         }
     }
 
