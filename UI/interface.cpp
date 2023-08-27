@@ -88,7 +88,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
                             MessageBox(hwnd, "Dialog failed!", "Error",
                             MB_OK | MB_ICONINFORMATION);
                         }
-                        else if(ret_co == IDADD){
+                        else if(ret_co == ID_CONVERTER_ADD){
                             cout << "You have clicked on the Add button";
                             MessageBox(hwnd, "Adding", "Notice", MB_OK | MB_ICONINFORMATION);
                         }
@@ -143,7 +143,34 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
                         int ret_note = DialogBox(GetModuleHandle(NULL), 
                             MAKEINTRESOURCE(IDD_DIALOG_NOTES), hwnd, NotasDlgProc);
 
+                        if(ret_note == ID_NOTAS_SALIRASISTENTE){
+                            MessageBox(hwnd, "OK... getting out", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+
                         break; 
+                    }
+
+                case IDD_DIALOG_POSITIONER:
+                    {
+                        int ret_posi = DialogBox(GetModuleHandle(NULL), 
+                            MAKEINTRESOURCE(IDD_DIALOG_POSITIONER), hwnd, PositionerDlgProc);
+                        
+                        if(ret_posi == ID_POSITIONER_OK){
+                            MessageBox(hwnd, "OK... getting out", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_posi == ID_POSITIONER_CANCEL){
+                            MessageBox(hwnd, "Nivelator Canceled.", "Notice",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+                        else if(ret_posi == -1){
+                            MessageBox(hwnd, "Nivelator Dialog failed!", "Error",
+                            MB_OK | MB_ICONINFORMATION);
+                        }
+
+                        break;
+
                     }
 
                     

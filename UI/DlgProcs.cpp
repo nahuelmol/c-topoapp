@@ -1,4 +1,71 @@
+BOOL CALLBACK PositionerDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 
+    using std::endl;
+    using std::cout;
+
+    switch(Message){
+        case WM_PAINT:
+        {   
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            // Aquí debes realizar el dibujo de los elementos de la ventana
+            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
+
+            EndPaint(hwnd, &ps);
+            break;
+        }
+        case WM_CREATE:
+        {
+            cout << "positioner created"<< endl;
+            break;
+        }
+
+        case WM_COMMAND:
+        {   
+
+            switch(LOWORD(wParam))
+            {
+                case ID_POSITIONER_STATIC:
+                {   
+                    cout << "static" << endl;
+                    break;
+                }
+                case ID_POSITIONER_DYNAMIC:
+                {
+                    cout << "dynamic" << endl;
+                    break;
+                }
+                case ID_POSITIONER_ABSOLUTE:
+                {
+                    cout << "absolute" << endl;
+                    break;
+                }
+                case ID_POSITIONER_DIFFERENTIAL:
+                {
+                    cout << "differential" << endl;
+                    break;
+                }
+
+                case ID_POSITIONER_CANCEL:
+                {
+                    EndDialog(hwnd, ID_POSITIONER_CANCEL);
+                    break;
+                }
+
+                case ID_POSITIONER_OK:
+                {
+                    EndDialog(hwnd, ID_POSITIONER_OK);
+                    break;
+                }
+            }
+
+            break;
+        }
+    }
+
+    return TRUE;
+}
 BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
     
     using std::endl;
@@ -15,6 +82,7 @@ BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
         {
             switch(LOWORD(wParam))
             {
+
                 case ID_NIVELAR:
                 {
                     cout << "\nnivelando";
@@ -28,6 +96,7 @@ BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
                 case ID_NIVELADOR_SALIR:
                 {
                     cout << "\nSaliendo..";
+                    EndDialog(hwnd, ID_NIVELADOR_SALIR);
                     break;
                 }
 
@@ -38,7 +107,6 @@ BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
                 }
             }
             break;
-            break;
         }
     }
 
@@ -47,6 +115,7 @@ BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
 
 void InitializeComboBox(HWND hComboBox, const char que_combo_box[]) {
 
+    using std::endl;
     using std::endl;
 
     const char opcion[] = "PRUEBABOX";
@@ -71,50 +140,31 @@ void InitializeComboBox(HWND hComboBox, const char que_combo_box[]) {
 }
 
 BOOL CALLBACK ConverterDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
-    const char WC_COMBOBOX_DT[] = "COMBOBOX_DT"; 
-    const char WC_COMBOBOX_NT[] = "COMBOBOX_NT"; 
 
-    const char box_classname_dt[] = "boxclassname_dt";
-    const char box_classname_nt[] = "boxclassname_nt";
-
-    const char WC_PRUEBABOX[] = "PRUEBABOX";
-    const char box_classname_prueba[] = "boxclassname_preba";
-
+    using std::endl;
+    using std::cout;
 
     switch(Message){
+        case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            // Aquí debes realizar el dibujo de los elementos de la ventana
+            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
+
+            EndPaint(hwnd, &ps);
+            break;
+        }
         case WM_CREATE:
         {
-            HWND hComboBox_DT = CreateWindow(WC_COMBOBOX_DT, box_classname_dt,
-                        CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
-                        65, 55, 75, 19, hwnd, (HMENU)ID_OPTION_DT, NULL, NULL);
-            InitializeComboBox(hComboBox_DT, WC_COMBOBOX_DT);
-
+            cout << "converter dlg created" << endl;
             break;
 
         }
         case WM_INITDIALOG:
         {
-            cout << "\nIniciado el dialogo converter";
-            
-
-            HWND hComboBox_NT = CreateWindow(WC_COMBOBOX_NT, box_classname_nt,
-                        CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
-                        65, 80, 75, 19, hwnd, (HMENU)ID_OPTION_NT, NULL, NULL);
-
-            InitializeComboBox(hComboBox_NT, WC_COMBOBOX_NT);
-
-            HWND hComboBox = CreateWindow(
-                WC_PRUEBABOX,
-                NULL,
-                CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
-                20, 20, 200, 200,
-                hwnd,
-                (HMENU)1,
-                NULL,
-                NULL
-            );
-
-            InitializeComboBox(hComboBox, WC_PRUEBABOX);
+            cout << "\nIniciado el dialogo converter" << endl;
 
             break;
 
@@ -125,19 +175,19 @@ BOOL CALLBACK ConverterDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
         {   
             switch(LOWORD(wParam))
             {
-                case IDADD:
+                case ID_CONVERTER_CANCEL:
+                {
+                    EndDialog(hwnd, ID_CONVERTER_CANCEL);
+                    break;
+                }
+                case ID_CONVERTER_ADD:
                 {
                     cout << "\nAdding";
                     break;
                 }
-                case IDOK:
+                case ID_CONVERTER_OK:
                 {
                     cout << "\nOking";
-                    break;
-                }
-                case IDCANCEL:
-                {
-                    cout << "\nCanceling";
                     break;
                 }
             }
@@ -173,6 +223,17 @@ BOOL CALLBACK CalculatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
     switch(Message)
     {
+        case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            // Aquí debes realizar el dibujo de los elementos de la ventana
+            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
+
+            EndPaint(hwnd, &ps);
+            break;
+        }
         case WM_INITDIALOG:
         {   
             cout << "\nInitializing calculator";
@@ -181,28 +242,41 @@ BOOL CALLBACK CalculatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
         case WM_COMMAND:
         {   
-            case ID_SUM:
-            {
-                char operation[] = "+";
+            switch(LOWORD(wParam)){
+                case ID_CALCULATOR_CANCEL:
+                {
+                    EndDialog(hwnd, ID_CALCULATOR_CANCEL);
+                }
 
-                send_value(hwnd, bsize, operation);
+                case ID_SUM:
+                {
+                    char operation[] = "+";
 
-            }
-            case ID_REST:
-            {
-                char operation[] = "-";
+                    send_value(hwnd, bsize, operation);
+                    break;
+                }
 
-                send_value(hwnd, bsize, operation);
+                case ID_REST:
+                {
+                    char operation[] = "-";
+
+                    send_value(hwnd, bsize, operation);
+                    break;
+                }
+
+                case ID_DIV:
+                {
+                    char operation[] = ":";
+                    break;
+                }
+
+                case ID_MULT:
+                {
+                    char operation[] = "*";
+                    break;
+                }
+                
             }
-            case ID_DIV:
-            {
-                char operation[] = ":";
-            }
-            case ID_MULT:
-            {
-                char operation[] = "*";
-            }
-            break;
         }
     }
 
@@ -214,10 +288,18 @@ BOOL CALLBACK NotasDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
 
     switch(Message)
     {
+        case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            EndPaint(hwnd, &ps);
+            break;
+        }
         case WM_INITDIALOG:
         {
             cout <<"\nEntering the notas dialog";
-            return TRUE;
+            break;
         }
 
         case WM_COMMAND:
@@ -225,12 +307,16 @@ BOOL CALLBACK NotasDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
             {
                 case ID_NOTAS_PIZARRA:
                     break;
+
                 case ID_NOTAS_BORRARPIZARRA:
                     cout << "\nBorrando";
                     break;
+
                 case ID_NOTAS_SALIRASISTENTE:
                     cout << "\nsaliendo";
+                    EndDialog(hwnd, ID_NOTAS_SALIRASISTENTE);
                     break;
+
                 case ID_NOTAS_SAVE:
                     {
                         char buffer[256];
@@ -252,79 +338,36 @@ BOOL CALLBACK NotasDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
     return TRUE;
 }
 
-BOOL CALLBACK CompoDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
-    switch(Message)
-    {
-        case WM_INITDIALOG:
 
-        return TRUE;
-        
-        case WM_COMMAND:
-            switch(LOWORD(wParam))
-            {
-                case IDOK:
-                    EndDialog(hwnd, IDOK);
-                break;
-                case IDCANCEL:
-                    EndDialog(hwnd, IDCANCEL);
-                break;
-            }
-        break;
-
-        default:
-            return FALSE;
-    }
-    return TRUE;
-}
 
 BOOL CALLBACK AboutDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
     switch(Message)
     {
-        case WM_INITDIALOG:
-
-        return TRUE;
-        
-        case WM_COMMAND:
-            switch(LOWORD(wParam))
-            {
-                case IDOK:
-                    EndDialog(hwnd, IDOK);
-                break;
-                case IDCANCEL:
-                    EndDialog(hwnd, IDCANCEL);
-                break;
-            }
-        break;
-
-        default:
-            return FALSE;
-    }
-    return TRUE;
-}
-
-BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
-
-    switch(Message)
-    {
-        case WM_INITDIALOG:
-
-        return TRUE;
-
-        case WM_CREATE:
+        case WM_PAINT:
         {
-            cout << "CalculatorDlg created";
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            // Aquí debes realizar el dibujo de los elementos de la ventana
+            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
+
+            EndPaint(hwnd, &ps);
+            break;
+        }
+        case WM_INITDIALOG:
+        {
+            break;  
         }
         
         case WM_COMMAND:
             switch(LOWORD(wParam))
             {
-                case IDOK:
-                    EndDialog(hwnd, IDOK);
+                case ID_ABOUT_OK:
+                    EndDialog(hwnd, ID_ABOUT_OK);
                 break;
-                case IDCANCEL:
-                    EndDialog(hwnd, IDCANCEL);
+                case ID_ABOUT_CANCEL:
+                    EndDialog(hwnd, ID_ABOUT_CANCEL);
                 break;
             }
         break;
@@ -332,6 +375,6 @@ BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
         default:
             return FALSE;
     }
-
     return TRUE;
 }
+
