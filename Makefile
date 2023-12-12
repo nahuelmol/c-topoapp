@@ -1,19 +1,17 @@
 OUT = out/out
 RESOBJ = res/out/resou.obj
 RESRC = res/src/resou.rc
+RESRES = res/out/resou.res
 
-pruebaexe:
-	pruebas/out
-
-pruebaobjs:
-	g++ -I $(CURDIR) -o pruebas/out calc/start.cpp
+db:
+	g++ -I $(CURDIR) -o conn connect.cpp -lodbc32
 
 rs:
-	windres -i $(RESRC) -o res/out/resou.res
-	windres -i res/out/resou.res -o res/out/resou.obj
+	windres $(RESRC) -O coff -o $(RESRES)
+	#windres res/out/resou.res -O coff -o res/out/resou.obj
 
 compile:
-	g++ -I $(CURDIR) -o $(OUT) $(RESOBJ) start.cpp
+	g++ -I $(CURDIR) -o $(OUT) start.cpp $(RESRES) -mwindows
 
 run: 
 	out/out.exe

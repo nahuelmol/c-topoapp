@@ -6,6 +6,30 @@
 using std::endl;
 using std::cout;
 
+class Registro {
+	public:
+
+		static Registro& getRegistro(){
+			static Regsitro instance;
+			return instance;
+		};
+
+		static std::string& name;
+		static int id;
+		static float date;
+
+
+	private:
+
+		Registro(char const std::string& name, int const id, float const date){
+			this -> name = name;
+			this -> id = id;
+			this -> date = date;
+
+		}
+
+}
+
 class Coordenada {
 
 	private:
@@ -124,12 +148,7 @@ class Perfil {
 
 int main(){
 
-	Perfil nuevoPerfil("geometrica");
-
-	nuevoPerfil.asignar_sub_tipo("simple");
-
-	cout << nuevoPerfil.get_tipo_nivelacion() << endl;
-	cout << nuevoPerfil.get_sub_tipo() << endl;
+	Registro registro = Registro::getInstance();
 	return 0;
 }
 

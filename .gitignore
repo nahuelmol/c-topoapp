@@ -1,5 +1,10 @@
 out/
+res/out/
 pruebas/
 
 menu_one.ico
+
 *.dll
+*.lib
+*.exe
+*.obj

@@ -1,49 +1,49 @@
-BOOL CALLBACK PositionerDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+
+char content[1024] = ""; 
+
+void writer(const char *symbol, HWND hwnd){
+    int numbers[] = {ID_ZERO, ID_ONE, ID_TWO, ID_THREE, ID_FOUR, ID_FIVE, ID_SIX, ID_SEVEN, ID_EIGTH, ID_NINE};
+    char writing[256] = "";
+
+    HWND pizarra = GetDlgItem(hwnd, ID_EDIT_CONTROL);
+    int len = GetWindowTextLength(pizarra);
+
+    char* buffer = new char[len + 1]; 
+    GetDlgItemText(hwnd, ID_EDIT_CONTROL, buffer, len + 1);
+
+    strcat(writing, buffer);
+    strcat(writing, symbol);
+
+    SetWindowText(pizarra, writing);
+
+}
+
+BOOL CALLBACK PositionerDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 
     using std::endl;
     using std::cout;
 
     switch(Message){
-        case WM_PAINT:
-        {   
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-
-            // Aquí debes realizar el dibujo de los elementos de la ventana
-            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
-
-            EndPaint(hwnd, &ps);
-            break;
-        }
+        
         case WM_CREATE:
-        {
-            cout << "positioner created"<< endl;
             break;
-        }
 
         case WM_COMMAND:
-        {   
-
-            switch(LOWORD(wParam))
-            {
+            switch(LOWORD(wParam)){
                 case ID_POSITIONER_STATIC:
                 {   
-                    cout << "static" << endl;
                     break;
                 }
                 case ID_POSITIONER_DYNAMIC:
                 {
-                    cout << "dynamic" << endl;
                     break;
                 }
                 case ID_POSITIONER_ABSOLUTE:
                 {
-                    cout << "absolute" << endl;
                     break;
                 }
                 case ID_POSITIONER_DIFFERENTIAL:
                 {
-                    cout << "differential" << endl;
                     break;
                 }
 
@@ -59,30 +59,26 @@ BOOL CALLBACK PositionerDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
                     break;
                 }
             }
+        break;
 
-            break;
-        }
+        default:
+            return FALSE;
     }
 
     return TRUE;
 }
-BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+BOOL CALLBACK NivelatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
     
     using std::endl;
     using std::cout;
 
     switch(Message){
-        case WM_CREATE:
-        {   
-            cout << "nivelador dlg created" << endl;
-            break;
-        }
+        case WM_INITDIALOG:
+
+        return TRUE;
 
         case WM_COMMAND:
-        {
-            switch(LOWORD(wParam))
-            {
-
+            switch(LOWORD(wParam)){
                 case ID_NIVELAR:
                 {
                     cout << "\nnivelando";
@@ -106,8 +102,10 @@ BOOL CALLBACK NivelatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lP
                     break;
                 }
             }
-            break;
-        }
+        break;
+
+        default:
+            return FALSE;
     }
 
     return TRUE;
@@ -139,178 +137,183 @@ void InitializeComboBox(HWND hComboBox, const char que_combo_box[]) {
 
 }
 
-BOOL CALLBACK ConverterDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+BOOL CALLBACK ConverterDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 
     using std::endl;
     using std::cout;
 
     switch(Message){
-        case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-
-            // Aquí debes realizar el dibujo de los elementos de la ventana
-            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
-
-            EndPaint(hwnd, &ps);
-            break;
-        }
-        case WM_CREATE:
-        {
-            cout << "converter dlg created" << endl;
-            break;
-
-        }
         case WM_INITDIALOG:
-        {
-            cout << "\nIniciado el dialogo converter" << endl;
 
-            break;
-
-        }
-
-
+        return TRUE;
+        
         case WM_COMMAND:
-        {   
-            switch(LOWORD(wParam))
-            {
+            switch(LOWORD(wParam)){
                 case ID_CONVERTER_CANCEL:
-                {
+                    
                     EndDialog(hwnd, ID_CONVERTER_CANCEL);
                     break;
-                }
+
+                case ID_CONVERTER_OK:
+                    
+                    EndDialog(hwnd, ID_CONVERTER_OK);
+                    break;
+
                 case ID_CONVERTER_ADD:
-                {
                     cout << "\nAdding";
                     break;
-                }
-                case ID_CONVERTER_OK:
-                {
-                    cout << "\nOking";
-                    break;
-                }
             }
-            break;
-        }
+        break;
+
+        default:
+            return FALSE;
     }
 
     return TRUE;
 }
 
-void send_value(HWND hwnd, int size, char operation[]){
+void operate(char operation[]){
 
-    using std::cout;
-    using std::endl;
-
-    char buffer[size];
-
-    HWND hEditControl = GetDlgItem(hwnd, ID_CALCULATOR_DISPLAY);
-
-    int len = GetWindowText(hEditControl, buffer, sizeof(buffer));
-    buffer[len] = '\0';
-
-    cout << "\n\n";
-    cout << buffer << endl;
-
-    operate(buffer, operation);
     
-
 }
 
-BOOL CALLBACK CalculatorDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
-    int bsize = 256;
 
-    switch(Message)
-    {
-        case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
+BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 
-            // Aquí debes realizar el dibujo de los elementos de la ventana
-            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
+    HWND hStatic = GetDlgItem(hwnd, ID_STATIC_TEXT);
 
-            EndPaint(hwnd, &ps);
-            break;
-        }
+    switch(Message){
         case WM_INITDIALOG:
-        {   
-            cout << "\nInitializing calculator";
-            break;
-        }
+        return TRUE;
 
         case WM_COMMAND:
-        {   
             switch(LOWORD(wParam)){
+                case ID_CALCULATOR_OK:
+                    EndDialog(hwnd, ID_CALCULATOR_OK);
+                break;
+
                 case ID_CALCULATOR_CANCEL:
-                {
                     EndDialog(hwnd, ID_CALCULATOR_CANCEL);
-                }
+                break;
 
-                case ID_SUM:
+                case ID_CLEAN:
                 {
-                    char operation[] = "+";
-
-                    send_value(hwnd, bsize, operation);
-                    break;
+                    HWND hEdit = GetDlgItem(hwnd, ID_EDIT_CONTROL); 
+                    SetWindowText(hEdit, ""); 
                 }
+                break;
 
-                case ID_REST:
-                {
-                    char operation[] = "-";
+                case ID_DELETE:
+                    SetWindowText(hStatic, "");
+                    strcpy(content, "");
+                break;
 
-                    send_value(hwnd, bsize, operation);
-                    break;
-                }
+                case ID_EQUAL:
+                    {
+                        HWND pizarra = GetDlgItem(hwnd, ID_EDIT_CONTROL);
+                        int len = GetWindowTextLength(pizarra);
 
-                case ID_DIV:
-                {
-                    char operation[] = ":";
-                    break;
-                }
+                        if (len > 0) {
+                            char* buffer = new char[len + 1];  
+                            GetDlgItemText(hwnd, ID_EDIT_CONTROL, buffer, len + 1);
 
-                case ID_MULT:
-                {
-                    char operation[] = "*";
-                    break;
-                }
-                
+                            strcat(content, buffer);
+                            strcat(content, "\n");
+
+                            SetWindowText(hStatic, content);
+                            operate(content);
+
+                            delete[] buffer; 
+
+                        }
+                        
+                    }
+                break;
+
+                case ID_PLUS:
+                    writer("+", hwnd);
+                break;
+
+                case ID_MINUS:
+                    writer("-", hwnd);
+                break;
+
+                case ID_OPEN:
+                    writer("(", hwnd);
+                break;
+
+                case ID_CLOSE:
+                    writer(")", hwnd);
+                break;
+
+                case ID_ZERO:
+                    writer("0", hwnd);
+                break;
+
+                case ID_ONE:
+                    writer("1", hwnd);
+                break;
+
+                case ID_TWO:
+                    writer("2", hwnd);
+                break;
+
+                case ID_THREE:
+                    writer("3", hwnd);
+                break;
+
+                case ID_FOUR:
+                    writer("4", hwnd);
+                break;
+
+                case ID_FIVE:
+                    writer("5", hwnd);
+                break;
+
+                case ID_SIX:
+                    writer("6", hwnd);
+                break;
+
+                case ID_SEVEN:
+                    writer("7", hwnd);
+                break;
+
+                case ID_EIGTH:
+                    writer("8", hwnd);
+                break;
+
+                case ID_NINE:
+                    writer("9", hwnd);
+                break;
             }
-        }
+        break;
+
+        default:
+            return FALSE;
     }
 
     return TRUE;
 }
-BOOL CALLBACK NotasDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+BOOL CALLBACK NotasDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
     using std::cout;
     using std::endl;
 
-    switch(Message)
-    {
-        case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-
-            EndPaint(hwnd, &ps);
-            break;
-        }
+    switch(Message){
         case WM_INITDIALOG:
-        {
-            cout <<"\nEntering the notas dialog";
-            break;
-        }
+        return TRUE;
 
         case WM_COMMAND:
-            switch(LOWORD(wParam))
-            {
+            switch(LOWORD(wParam)){
                 case ID_NOTAS_PIZARRA:
                     break;
 
                 case ID_NOTAS_BORRARPIZARRA:
-                    cout << "\nBorrando";
-                    break;
+                    {
+                        HWND hEdit = GetDlgItem(hwnd, ID_NOTAS_PIZARRA); // Replace with your edit control's resource ID
+                        SetWindowText(hEdit, ""); // Set the text to an empty string  
+                        
+                        break;
+                    }
 
                 case ID_NOTAS_SALIRASISTENTE:
                     cout << "\nsaliendo";
@@ -319,56 +322,20 @@ BOOL CALLBACK NotasDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
 
                 case ID_NOTAS_SAVE:
                     {
-                        char buffer[256];
-                        HWND hEditControl = GetDlgItem(hwnd, ID_NOTAS_PIZARRA);
+                        
+                        HWND hEdit = GetDlgItem(hwnd, ID_NOTAS_PIZARRA);
+                        int len = GetWindowTextLength(hEdit);
 
-                        int len = GetWindowText(hEditControl, buffer, sizeof(buffer));
-                        buffer[len] = '\0';
-
-                        cout << "\n\n";
-                        cout << buffer << endl;
-
-                        break;
-
+                        if (len > 0) {
+                            char* buffer = new char[len + 1];  // Add 1 for null-termination
+                            GetDlgItemText(hwnd, ID_NOTAS_PIZARRA, buffer, len + 1);
+                            MessageBox(hwnd, buffer, "Edit Control Text", MB_ICONINFORMATION);
+                            delete[] buffer; // Free the allocated memory
+                        }
+                        else {
+                            MessageBox(hwnd, "Edit control is empty.", "Edit Control Text", MB_ICONINFORMATION);
+                        }
                     }
-
-                    
-            }
-    }
-    return TRUE;
-}
-
-
-
-BOOL CALLBACK AboutDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
-    switch(Message)
-    {
-        case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-
-            // Aquí debes realizar el dibujo de los elementos de la ventana
-            // Utiliza las funciones de dibujo de WinAPI como TextOut, Rectangle, etc.
-
-            EndPaint(hwnd, &ps);
-            break;
-        }
-        case WM_INITDIALOG:
-        {
-            break;  
-        }
-        
-        case WM_COMMAND:
-            switch(LOWORD(wParam))
-            {
-                case ID_ABOUT_OK:
-                    EndDialog(hwnd, ID_ABOUT_OK);
-                break;
-                case ID_ABOUT_CANCEL:
-                    EndDialog(hwnd, ID_ABOUT_CANCEL);
-                break;
             }
         break;
 
@@ -377,4 +344,6 @@ BOOL CALLBACK AboutDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
     }
     return TRUE;
 }
+
+
 
