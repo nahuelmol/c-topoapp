@@ -29,7 +29,7 @@ runtest:
 
 
 ctest:
-	g++ -I $(CURDIR) -o $(OUTTEST) tests/ctest.cpp
+	g++ -I $(CURDIR) -o $(OUTER) tests/ctest.cpp
 
 runctest:
 	tests/out/out.exe

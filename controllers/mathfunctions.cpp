@@ -5,6 +5,21 @@ using std::log;
 using std::sin;
 using std::cos;
 
+float specialized_functions(){
+		
+	return result;
+}
+
+float sensible(){
+
+	return result;
+}
+
+float multiplication(){
+
+	return result;
+}
+
 float operate(float * numbers, std::string ops){
 	using std::cout;
 	using std::endl;
@@ -82,60 +97,67 @@ int frequency(const char* str){
 	return count;
 }
 
+bool symbol_exists(char symbol){
+
+	using std::cout;
+	using std::endl;
+	
+	cout << "symbol; "<< symbol << endl;	
+	char OPERATIONS[] = {'-','+'};
+	
+	for(char ope : OPERATIONS){
+		if(symbol == ope){
+			return true;
+		}
+	}
+
+	return false;
+}
 
 
 char * separate_terms(char* content,std::string* ops,float *numbers,int symbols,int* k){
     	using std::cout;
 	using std::endl;
 	
-	//this function just act over the firs symbol, because 
-	//the loop is breaked once the k iterator in completed
-	//if symbols switched their position in the following array
-	//they are perceived or not
-	//just the one in the first position is considered
-	//think how to change it
-    	char AVAILABLE_OPERATIONS[] = {'-','+'};
+	//I just achieve the sum and rest operations
+	//the rest operations leaves a minus sumbol in the result	
 
-    	std::size_t  size_operations = sizeof(AVAILABLE_OPERATIONS);
-	
-    	for(int i = 0;i < size_operations; i++){
-        	char delimiter = AVAILABLE_OPERATIONS[i];
+        int j = 0;
+        while (*content != '\0') {
 
-        	int j = 0;
-        	while (*content != '\0') {
+  	    	if(symbol_exists(*content)){
+		
+			*ops+=*content;
+                	//char* substring = content +1;
 
-  	    		if(*content == delimiter){
-				cout << "delimiter: "<< delimiter << endl;
-				*ops+=delimiter;
-                		//char* substring = content +1;
-
-				char* mystring = content - j;
-                		*content = '\0';
-				cout << mystring << " number" << endl;
-				float num = std::stof(mystring);	
-				numbers[*k] = num;
-				*content = delimiter;
-				//content = content + j;
+			char* mystring = content - j;
+                	char aux = *content;
+			*content = '\0';
+			cout << mystring << " number" << endl;
+			float num = std::stof(mystring);	
+			numbers[*k] = num;
+			*content = aux;
+			//content = content + j;
 			
 				
-				*k = *k + 1;
+			*k = *k + 1;
 
-				return content;
-            		};
+			return content;
+            	};
 			
-			if(*k == symbols){
-				char* mystring = content;
-				float num = std::stof(mystring);
-				numbers[*k] = num;
-				cout << content << " number" << endl;
-				*k = *k + 1;
-				return content;
-			}
+		if(*k == symbols){
+			char* mystring = content;
+			float num = std::stof(mystring);
+			numbers[*k] = num;
+			cout << content << " number" << endl;
+			*k = *k + 1;
+			return content;
+		}
 
-            		content++;
-            		j++;
-        	};
-    	};
+            	content++;
+            	j++;
+        };
+    	
 
 	return content;
     

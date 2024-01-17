@@ -1,20 +1,42 @@
-class GPS_coordinates {
+#include <iostream>
 
-	long double latitud;
-	long double longitud;
+using namespace std;
 
+
+
+
+class Coordinate {
+	
 	public:
+		float time;
+		float xcoor;
+		float ycoor;
+		
 
-		int_to_float(){
+};
 
-			latitud = ;
-			longitud = ;
+
+class GeographicCoordinate: Coordinate {
+	public:
+		
+		GeographicCoordinate(float x, float y){
+			xcoor = x;
+			ycoor = y;
 		}
 
-		is_it_valid(){
-			//function that makes sure if the inout is ablle to be converte to longitud o latitud
+		void display(){
+			cout << "Geographic Coors" << endl;
+		}
+};
+
+class GeodesicCoordinate: Coordinate {
+	public:
+		GeodesicCoordinate(float x, float y){
+			xcoor = x;
+			ycoor = y;
 		}
 
-}
-
-
+		void display(){
+			cout << "Geodesic Coors" << endl;
+		}
+};

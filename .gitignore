@@ -20,6 +20,7 @@ pruebas/
 
 menu_one.ico
 
+*.cpp~
 *.swp
 *.un~
 .gitignore~
