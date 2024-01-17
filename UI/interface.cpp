@@ -55,38 +55,37 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
                 case IDD_DIALOG_CONVERTER:
                     {
                         int conv = DialogBox(GetModuleHandle(NULL), 
-                            MAKEINTRESOURCE(IDD_DIALOG_CONVERTER), parent, ConverterDlg);
+                        MAKEINTRESOURCE(IDD_DIALOG_CONVERTER), parent, ConverterDlg);
                         basic_commands(conv, parent);
                     }   break;
                     
 
                 case IDD_DIALOG_CALCULATOR:
                     {   
-
                         int ret = DialogBox(GetModuleHandle(NULL), 
-                            MAKEINTRESOURCE(IDD_DIALOG_CALCULATOR), parent, CalculatorDlg);
+                        MAKEINTRESOURCE(IDD_DIALOG_CALCULATOR), parent, CalculatorDlg);
                         basic_commands(ret, parent);
                     }   break;
 
                 case IDD_DIALOG_NIVELATOR:
                     {
                         int ret_niv = DialogBox(GetModuleHandle(NULL),
-                            MAKEINTRESOURCE(IDD_DIALOG_NIVELATOR), parent, NivelatorDlg);
+                        MAKEINTRESOURCE(IDD_DIALOG_NIVELATOR), parent, NivelatorDlg);
                         basic_commands(ret_niv, parent);
                     }   break;
-                    
+                
 
                 case IDD_DIALOG_NOTES:
                     {
                         int ret_note = DialogBox(GetModuleHandle(NULL), 
-                            MAKEINTRESOURCE(IDD_DIALOG_NOTES), parent, NotasDlg);
+                        MAKEINTRESOURCE(IDD_DIALOG_NOTES), parent, NotasDlg);
                         basic_commands(ret_note, parent);
                     }   break; 
 
                 case IDD_DIALOG_POSITIONER:
                     {
                         int ret_posi = DialogBox(GetModuleHandle(NULL), 
-                            MAKEINTRESOURCE(IDD_DIALOG_POSITIONER), parent, PositionerDlg);
+                        MAKEINTRESOURCE(IDD_DIALOG_POSITIONER), parent, PositionerDlg);
                         basic_commands(ret_posi, parent);
                     }   break;
 

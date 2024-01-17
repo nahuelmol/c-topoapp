@@ -36,6 +36,26 @@ IDR_MENU1 MENU
 // Dialog resources
 //
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+IDD_DIALOG1 DIALOG 0, 0, 257, 241
+STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VISIBLE | WS_POPUP | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "Ms Shell Dlg"
+{
+    EDITTEXT        0, 11, 34, 38, 13, ES_AUTOHSCROLL, WS_EX_LEFT
+    LTEXT           "Scale", 0, 55, 35, 19, 9, SS_LEFT, WS_EX_LEFT
+    EDITTEXT        0, 10, 65, 158, 134, ES_AUTOHSCROLL, WS_EX_LEFT
+    PUSHBUTTON      "Add point", 0, 195, 10, 35, 14, 0, WS_EX_LEFT
+    EDITTEXT        0, 10, 10, 40, 14, ES_AUTOHSCROLL, WS_EX_LEFT
+    PUSHBUTTON      "Cancel", IDCANCEL, 195, 217, 50, 14, 0, WS_EX_LEFT
+    DEFPUSHBUTTON   "OK", IDOK, 195, 200, 50, 14, 0, WS_EX_LEFT
+    EDITTEXT        0, 110, 10, 40, 14, ES_AUTOHSCROLL, WS_EX_LEFT
+    LTEXT           "Origin distance", 0, 55, 15, 48, 9, SS_LEFT, WS_EX_LEFT
+    LTEXT           "Cota", 0, 155, 15, 16, 9, SS_LEFT, WS_EX_LEFT
+}
+
+
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 IDD_DIALOG_CALCULATOR DIALOG 0, 0, 200, 266
 STYLE DS_MODALFRAME | DS_SETFONT | WS_CAPTION | WS_POPUP | WS_SYSMENU
 CAPTION "Calculator"
@@ -117,11 +137,14 @@ FONT 8, "Ms Shell Dlg"
 
 
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-IDD_DIALOG_POSITIONER DIALOG 0, 0, 186, 282
+IDD_DIALOG_POSITIONER DIALOG 0, 0, 397, 282
 STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VISIBLE | WS_POPUP | WS_SYSMENU
 CAPTION "Positioning"
 FONT 8, "Ms Shell Dlg"
 {
+    PUSHBUTTON      "Add with link", 0, 290, 65, 45, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Add from local storage", 0, 205, 65, 75, 14, 0, WS_EX_LEFT
+    COMBOBOX        0, 205, 45, 137, 16, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT
     LTEXT           "min 4", 0, 138, 71, 18, 9, SS_LEFT, WS_EX_LEFT
     EDITTEXT        0, 70, 70, 56, 12, ES_AUTOHSCROLL, WS_EX_LEFT
     LTEXT           "Type", 0, 5, 5, 17, 9, SS_LEFT, WS_EX_LEFT
@@ -134,6 +157,15 @@ FONT 8, "Ms Shell Dlg"
     AUTOCHECKBOX    "Diferential", ID_POSITIONER_DIFFERENTIAL, 15, 85, 47, 8, 0, WS_EX_LEFT
     LTEXT           "min 4", 0, 138, 86, 18, 9, SS_LEFT, WS_EX_LEFT
     EDITTEXT        0, 70, 85, 56, 12, ES_AUTOHSCROLL, WS_EX_LEFT
+    LTEXT           "Files needed for porcessing", 0, 205, 10, 87, 9, SS_LEFT, WS_EX_LEFT
+    LTEXT           "Permanent Station (INEGI, IGN, etc)", 0, 205, 30, 115, 9, SS_LEFT, WS_EX_LEFT
+    LTEXT           "My device data files", 0, 205, 110, 64, 9, SS_LEFT, WS_EX_LEFT
+    LTEXT           "Efemerides (satelites position)", 0, 205, 170, 93, 9, SS_LEFT, WS_EX_LEFT
+    LTEXT           "Station", 0, 345, 45, 23, 9, SS_LEFT, WS_EX_LEFT
+    PUSHBUTTON      "Add with link", 0, 290, 125, 45, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Add from local storage", 0, 205, 125, 75, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Add with link", 0, 290, 185, 45, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Add from local storage", 0, 205, 185, 75, 14, 0, WS_EX_LEFT
 }
 
 

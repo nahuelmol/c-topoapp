@@ -2,7 +2,27 @@ out/
 res/out/
 pruebas/
 
+/UI/*.swp
+/UI/*.un~
+/UI/*.cpp~
+
+/controllers/*.swp
+/controllers/*.un~
+/controllers/*.cpp~
+
+/tests/*.swp
+/tests/*.un~
+/tests/*.cpp~
+
+/db/*.swp
+/db/*.un~
+/db/*.cpp~
+
 menu_one.ico
+
+*.swp
+*.un~
+.gitignore~
 
 *.dll
 *.lib

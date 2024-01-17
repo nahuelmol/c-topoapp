@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <winuser.h>
 #include <tchar.h>
+#include <libpq-fe.h>
 
 #include "res/src/resource.h"
 
@@ -16,3 +17,4 @@
 
 
 #include <UI/interface.h>
+//#include <db/conn.h>

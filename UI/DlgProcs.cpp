@@ -172,10 +172,35 @@ BOOL CALLBACK ConverterDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
     return TRUE;
 }
 
-void operate(char operation[]){
 
-    
+
+float create_substrings (char* complete_string) {
+	
+	int count_symbol = frequency(complete_string);	
+	int count_number = count_symbol + 1;
+
+	std::string operations = "";
+	
+	float* numbers = new float[count_number];
+	int k = 0;
+
+	//numbers dimensions should be reviewed more slowly
+	//it works but it returns 1 more in size
+	while(*complete_string != '\0'){
+		if(k < count_number){
+			complete_string = separate_terms(complete_string,&operations,numbers,count_symbol,&k);
+		}
+
+		complete_string++;
+	}
+
+	cout << "operations: " << endl;
+	
+	float result = operate(numbers, operations);
+
+	return result;
 }
+
 
 
 BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
@@ -220,8 +245,14 @@ BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
                             strcat(content, buffer);
                             strcat(content, "\n");
 
-                            SetWindowText(hStatic, content);
-                            operate(content);
+			    float result = create_substrings(content);
+			   
+			    char BUFFER[20];
+	
+			    std::sprintf(BUFFER, "%f", result);
+	
+			    const char* example = BUFFER;
+                            SetWindowText(hStatic, example);
 
                             delete[] buffer; 
 
