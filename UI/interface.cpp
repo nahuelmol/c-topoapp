@@ -1,14 +1,12 @@
 const char g_szClassName[] = "myWindowClass";
 
 void basic_commands(int res, HWND hwnd){
-
     using std::cout;
     using std::endl;
 
     int OKS[3] = {ID_CONVERTER_OK, ID_CALCULATOR_OK, ID_POSITIONER_OK};
     int CANCELS[4] = {ID_CONVERTER_CANCEL, ID_CALCULATOR_CANCEL, ID_POSITIONER_CANCEL, ID_NOTAS_SALIRASISTENTE};
     int opc = -1;
-
 
     bool exists_ok = std::find(std::begin(OKS), std::end(OKS), res);
     bool exists_can = std::find(std::begin(CANCELS), std::end(CANCELS), res);
@@ -19,7 +17,6 @@ void basic_commands(int res, HWND hwnd){
     }else if(exists_can){
         MessageBox(hwnd, "OK... getting out", "Notice", MB_OK | MB_ICONINFORMATION);
     }
-
 }
 
 LRESULT CALLBACK window_proc(HWND wnd, UINT wMsg, WPARAM wParam, LPARAM lParam){
@@ -36,7 +33,6 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
     PAINTSTRUCT ps;
     HDC hdc;
     TCHAR greeting[] = _T("Hello, Windows Desktop!");
-
     LRESULT result = 0;
 
     using std::cout;
@@ -50,7 +46,6 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
             }
             
         case WM_COMMAND:
-
             switch(LOWORD(wParam)){
                 case IDD_DIALOG_CONVERTER:
                     {
@@ -59,7 +54,6 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
                         basic_commands(conv, parent);
                     }   break;
                     
-
                 case IDD_DIALOG_CALCULATOR:
                     {   
                         int ret = DialogBox(GetModuleHandle(NULL), 
@@ -74,7 +68,6 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
                         basic_commands(ret_niv, parent);
                     }   break;
                 
-
                 case IDD_DIALOG_NOTES:
                     {
                         int ret_note = DialogBox(GetModuleHandle(NULL), 
@@ -101,7 +94,6 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
         default:
             return DefWindowProc(parent, msg, wParam, lParam);
     }
-
     return result;
 }
 
@@ -110,7 +102,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     HWND hwnd;
     HACCEL hAccelerators;
     MSG Msg;
-
 
     wc.cbSize        = sizeof(WNDCLASSEX);
     wc.style         = 0;
@@ -133,7 +124,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
         return 0;
     }
 
-    
     hwnd = CreateWindowEx(
         WS_EX_CLIENTEDGE,
         wc.lpszClassName,
@@ -152,7 +142,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     UpdateWindow(hwnd);
 
     while(GetMessage(&Msg, NULL, 0, 0) > 0){
-
         TranslateMessage(&Msg);
         DispatchMessage(&Msg);
     }

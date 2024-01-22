@@ -8,35 +8,42 @@ using namespace std;
 class Coordinate {
 	
 	public:
-		float time;
+		
+		Coordinate(float x, float y): xcoor(x), ycoor(y) {}
+
+		void coordinating() const {
+		
+			cout << "coordinating" << endl;
+		}		
+	private:
 		float xcoor;
 		float ycoor;
-		
-
 };
 
 
-class GeographicCoordinate: Coordinate {
+class GeographicCoordinate: public Coordinate {
 	public:
 		
-		GeographicCoordinate(float x, float y){
-			xcoor = x;
-			ycoor = y;
+		GeographicCoordinate(float x, float y, float time): Coordinate(x,y), time_(time){}
+
+		void GeographicalDraw(){
+			cout << "time: " << time_ << endl;
+			cout << "graphical draw" << endl;
 		}
 
-		void display(){
-			cout << "Geographic Coors" << endl;
-		}
+	private:
+		float time_;
 };
 
-class GeodesicCoordinate: Coordinate {
+class GeodesicCoordinate: public Coordinate {
 	public:
-		GeodesicCoordinate(float x, float y){
-			xcoor = x;
-			ycoor = y;
-		}
+		GeodesicCoordinate(float x, float y, float time): Coordinate(x,y), time_(time) {}
 
-		void display(){
-			cout << "Geodesic Coors" << endl;
+		void GeodesicalDraw(){
+			cout << "time: " << time_ << endl;
+			cout << "geodesical draw" << endl;
 		}
+		
+	private:
+		float time_;
 };

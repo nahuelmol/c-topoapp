@@ -15,16 +15,13 @@ void writer(const char *symbol, HWND hwnd){
     strcat(writing, symbol);
 
     SetWindowText(pizarra, writing);
-
 }
 
 BOOL CALLBACK PositionerDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
-
     using std::endl;
     using std::cout;
 
     switch(Message){
-        
         case WM_CREATE:
             break;
 
@@ -175,7 +172,9 @@ BOOL CALLBACK ConverterDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
 
 
 float create_substrings (char* complete_string) {
-	
+	using std::cout;
+	using std::endl;
+
 	int count_symbol = frequency(complete_string);	
 	int count_number = count_symbol + 1;
 
@@ -195,7 +194,6 @@ float create_substrings (char* complete_string) {
 	}
 
 	cout << "operations: " << endl;
-	
 	float result = operate(numbers, operations);
 
 	return result;
@@ -246,18 +244,14 @@ BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
                             strcat(content, "\n");
 
 			    float result = create_substrings(content);
-			   
 			    char BUFFER[20];
 	
 			    std::sprintf(BUFFER, "%f", result);
-	
-			    const char* example = BUFFER;
-                            SetWindowText(hStatic, example);
+			    const char* resulbff= BUFFER;
+                            SetWindowText(hStatic, resulbff);
 
                             delete[] buffer; 
-
                         }
-                        
                     }
                 break;
 

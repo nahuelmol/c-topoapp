@@ -4,12 +4,10 @@
 
 
 float testapp(){
-
-
 	using std::cout;
 	using std::endl;
 	using std::cin;
-	
+
 	std::string input; 
 	cout << "Enter an operation: " << endl;
 	cin >> input;
@@ -17,32 +15,39 @@ float testapp(){
 	char* example = new char[input.length() + 1];
 	std::strcpy(example, input.c_str());
 
-	//char entire_operation[] = input.c_str();
-	//char* example = entire_operation;
-	
-	int count_symbol = frequency(example);	
-	int count_number = count_symbol + 1;
-
-	std::string operations = "";
-	
-	float* numbers = new float[count_number];
-	cout << sizeof(*numbers) << endl;	
-	int k = 0;
-
-	while(*example != '\0'){
-		if(k < count_number){
-			example = separate_terms(example,&operations,numbers,count_symbol,&k);
+	std::vector<float> numbers;
+	std::vector<char> symbols;
+	std::vector<std::string> scopes;
+	first_terms(example, scopes, symbols);
+	int count_scopes = 1;
+	std::vector<float> scope_results;
+	float temp;
+	for(std::string& scope: scopes){
+		cout << "scope: " << count_scopes << "; "<< scope << endl;
+		if(same_level_ops(scope)){
+			temp = operate_scope(scope);
+			scope_results.push_back(temp);
 		}
-
-		example++;
+		count_scopes++;
 	}
 	
-	float result = operate(numbers, operations);
-
-	return result;
+	std::vector<std::string> strnumbers;
+	for(float &number: scope_results){
+		std::string strn = std::to_string(number);
+		strnumbers.push_back(strn);
+	}
+	
+	float result = calculation(strnumbers, symbols);
+	cout << "final result: " << result << endl;
+	return 0.0;
 }
 
-
+float potandsqrt(){
+	//float result = sensible('potential',4,4);
+	//cout << "result: " << result << endl;
+	float result = 0.0;
+	return result;
+}
 
 int main(){
 
@@ -50,7 +55,5 @@ int main(){
 	using std::endl;
 
 	float result = testapp();
-	cout << result << endl;
-
 	return 0;
 }

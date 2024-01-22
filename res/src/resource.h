@@ -11,6 +11,7 @@
 #define IDD_DIALOG_NOTES                        2017
 #define IDD_DIALOG_NIVELATOR                    2018
 #define IDD_DIALOG_POSITIONER                   2019
+#define IDD_DIALOG_POINTS                       2020
 #define ID_CALCULATOR_OK                        4001
 #define ID_CHS                                  5008
 #define ID_CHO                                  5009
