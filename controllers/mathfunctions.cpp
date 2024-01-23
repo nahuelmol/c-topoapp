@@ -6,7 +6,6 @@ using std::log;
 using std::sin;
 using std::cos;
 
-
 bool symbol_exists(char symbol){
 	using std::cout;
 	using std::endl;
@@ -65,90 +64,6 @@ float specialized_functions(){
 	return result;
 }
 
-float sensible(char ope, float number1, float number2){
-	//maybe the result should not be just floats, think about the double type
-	//think about other operations that could be made in this stage
-	std::vector<std::string> operations= {"potential", "sqrt"};
-	for(auto& op: operations){
-		if(ope == 'potential'){
-			float base = number1;
-			float exponent = number2;
-			float result = std::pow(base, exponent);
-			return result;
-		}
-
-		if(ope == 'sqrt'){
-			float base = number1;
-			float squarer = number2;
-			
-			float result = std::sqrt(base); 
-			return result;
-		}
-	}
-	float result;
-	return result;
-}
-
-float operate(float *numbers, std::string ops){
-	using std::cout;
-	using std::endl;
-
-	cout << "operations: "<< ops << endl;
-	
-	int j = 0;
-	float result = 0;	
-
-	for(char op : ops){
-		switch(op){
-			case '+':
-			{	
-				if(result == 0){
-					result = numbers[j+1] + numbers[j];
-				} else {
-					result = numbers[j+1] + result;
-				}
-			} break;
-
-			case '-':
-			{	
-				cout << "-" <<endl;
-
-				if(result == 0){
-
-					result = numbers[j] - numbers[j+1];
-				} else {
-					result = numbers[j+1] - result;
-				}
-			} break;
-			
-			case '*':
-			{
-				cout << "*" << endl;
-				if(result == 0){
-					result = numbers[j] - numbers[j+1];
-				} else {
-					result = numbers[j+1] - result;
-				}
-				
-			} break;
-			
-			case '/':
-			{
-			} break;
-			default:
-				std::cout << "There's not a valid symbol" << endl; 
-		}
-
-
-		j++;
-	}
-	
-	std::cout << "result: " << result << endl;
-
-	return result;
-
-}
-
 float calculation(std::vector<std::string> &numbers, std::vector<char> &symbols){
 	int k = 1;
 	std::vector<float> floatnumbers;
@@ -174,6 +89,11 @@ float calculation(std::vector<std::string> &numbers, std::vector<char> &symbols)
 				tresult = tresult + floatnumbers[k];
 			}
 			break;
+			case '-':
+			{
+				tresult = tresult - floatnumbers[k];
+			}
+			break;
 		}
 		k++;
 	}
@@ -197,15 +117,26 @@ float operate_scope(std::string &operation){
 				count++;
 			}	
 		}
-		if(count == 0){
-			symbols.push_back(target);
-			numbers.push_back(number);
-			number = "";
+		if(count == 0){ 
+			if((target != '(') && (target != ')')){
+				symbols.push_back(target);
+				numbers.push_back(number);	
+				number = "";
+			}
+		
 		} else {
 			number += target;
 		}
 	}
 	numbers.push_back(number);
+	
+	for(std::string &numbs: numbers){
+		cout << "numb: " << numbs << endl;
+	}
+
+	for(char c: symbols){
+		cout << "symbs" << c << endl;
+	}
 	
 	if(numbers.size() == 1){
 		return std::stof(numbers[0]);
@@ -213,72 +144,66 @@ float operate_scope(std::string &operation){
 		return calculation(numbers, symbols); 
 	}
 
-
 	return 0.0; 
 } 
 
 
-
-void first_terms(char* complete,std::vector<std::string> &scopes, std::vector<char> &symbols){
+void separate(std::string &complete,std::vector<std::string> &scopes,std::vector<char> &symbols){
 	using std::cout;
 	using std::endl;
-	int symbol_count = 0;
-	std::string scope = "";	
+	int symbol_count;
+	char numbers_available[] = {'1','2','3','4','5','6','7','8','9','0','.'};
 
-	while(*complete != '\0'){
-		if(symbol_exists(*complete)){
-			scopes.push_back(scope);
-			scope = "";
-			symbols.push_back(*complete);
+	std::string scope= "";
+	bool brackets = false;
+	std::string parenthesis = "";
+	int interns = 0;
+	int charactercount = 0;
+	for(char c: complete){
+		if(brackets){
+			if(c==')'){
+				if(interns == 0){
+					brackets = false;
+					scopes.push_back(scope);
+					scope = "";
+				} else {
+					interns--;
+				}
+				
+			} else if(c == '('){
+				interns++;
+			} else {
+				std::string number(1,c);
+				scope.append(number);
+			}
+
+		} else if(symbol_exists(c)){
+			if(scope != ""){
+				scopes.push_back(scope);
+				scope = "";
+			}
+			symbols.push_back(c);
+		} else if(c == '('){
+			brackets = true;
 		} else {
-			std::string number(1, *complete);
-			scope.append(number);
+			int cnum = 0;
+			for(char numa: numbers_available){
+				if(c == numa){
+					cnum++;	
+				}
+			}
+			if((cnum == 0) && (complete[charactercount+1] == '(')){
+				scopes.push_back(scope);
+				symbols.push_back(c);
+				scope = "";
+			} else {
+				std::string number(1, c);
+				scope.append(number);
+			}
 		}
-
-		complete++;
-			
+		charactercount++;
 	}
-	scopes.push_back(scope);
-
+	if(scope != ""){
+		scopes.push_back(scope);
+	}
 }
-
-char * separate_terms(char* content,std::string* ops,float *numbers,int symbols,int* k){
-    	using std::cout;
-	using std::endl;
-	//I just achieve the sum and rest operations
-	//the rest operations leaves a minus sumbol in the result	
-
-        int j = 0;
-        while (*content != '\0') {
-  	    	if(symbol_exists(*content)){
-			*ops+=*content;
-
-			char* mystring = content - j;
-                	char aux = *content;
-			*content = '\0';
-			//cout << mystring << " number" << endl;
-			float num = std::stof(mystring);	
-			numbers[*k] = num;
-			*content = aux;
-			
-			*k = *k + 1;
-			return content;
-            	};
-			
-		if(*k == symbols){
-			char* mystring = content;
-			float num = std::stof(mystring);
-			numbers[*k] = num;
-			//cout << content << " number" << endl;
-			*k = *k + 1;
-			return content;
-		}
-
-            	content++;
-            	j++;
-        };
-    	
-	return content;
-};
-
-
