@@ -169,7 +169,7 @@ BOOL CALLBACK ConverterDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
     return TRUE;
 }
 
-
+/*
 
 float create_substrings (char* complete_string) {
 	using std::cout;
@@ -197,7 +197,7 @@ float create_substrings (char* complete_string) {
 	float result = operate(numbers, operations);
 
 	return result;
-}
+}*/
 
 
 
@@ -242,14 +242,14 @@ BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
                             strcat(content, buffer);
                             strcat(content, "\n");
-
+				/*
 			    float result = create_substrings(content);
 			    char BUFFER[20];
 	
 			    std::sprintf(BUFFER, "%f", result);
 			    const char* resulbff= BUFFER;
                             SetWindowText(hStatic, resulbff);
-
+				*/
                             delete[] buffer; 
                         }
                     }
@@ -371,4 +371,22 @@ BOOL CALLBACK NotasDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 }
 
 
+BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+	using std::cout;
+	using std::endl;
+	
+	switch(Message){
+		case WM_INITDIALOG:
+		return TRUE;
+		case WM_SIZE:
+			{
+				cout << "sized" << endl;
+			}
+			break;
+		default:
+			return FALSE;
+	}
+
+	return TRUE;
+}
 
