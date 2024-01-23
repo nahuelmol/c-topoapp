@@ -81,7 +81,12 @@ LRESULT CALLBACK WndProc(HWND parent, UINT msg, WPARAM wParam, LPARAM lParam){
                         MAKEINTRESOURCE(IDD_DIALOG_POSITIONER), parent, PositionerDlg);
                         basic_commands(ret_posi, parent);
                     }   break;
-
+		case IDD_DIALOG_POINTS:
+		    {
+			int ret  = DialogBox(GetModuleHandle(NULL),
+			    MAKEINTRESOURCE(IDD_DIALOG_POINTS), parent, PointsDlg);
+			basic_commands(ret, parent);
+		    } 	break;
             }
             break;
 
