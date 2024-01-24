@@ -349,8 +349,14 @@ void CreateBox(HDC hdc,int x0,int y0,int width,int height,int red,int green,int 
 	DeleteObject(brush);
 }
 
+bool clean_screen = false;
 bool point_creation = false;
 RECT FollowerRect = {0,0,0,0};
+
+void CleanScreen(HDC hdc, RECT rect){
+	HBRUSH screen_brush = CreateSolidBrush(RGB(0,0,0));	
+	FillRect(hdc, &rect, screen_brush);
+}
 
 void PointRegister(HWND hwnd, RECT rect){
 	using std::endl;
@@ -398,6 +404,11 @@ LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				
 				CreatePoint(hwnd, hdc, FollowerRect);
 				point_creation = false;//this does not change anything
+			}
+			
+			if(clean_screen){
+				CleanScreen(hdc, rect);
+				clean_screen = false;
 			}
 
 			EndPaint(hwnd, &ps);
@@ -499,6 +510,11 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 					}
                            	} break; 
 
+				case ID_CLEAN_SCREEN:{
+					//clean the screen at the first click on the windows
+					//later of being this button
+					clean_screen = true;
+				} break;
 				case ID_ADDPOINT:{
 					PointRegister(hwnd, FollowerRect);
 				} break;

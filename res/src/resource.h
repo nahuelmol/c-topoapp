@@ -43,6 +43,7 @@
 #define ID_STATIC_TEXT                          40002
 #define ID_ADDPOINT                             40003
 #define ID_EDIT_CONTROL                         40003
+#define ID_CLEAN_SCREEN                         40004
 #define ID_PLUS                                 40004
 #define ID_MINUS                                40005
 #define ID_OPEN                                 40006
