@@ -37,8 +37,11 @@
 #define ID_POSITIONER_ABSOLUTE                  8005
 #define ID_POSITIONER_DIFFERENTIAL              8006
 #define ID_CALCULATOR_CANCEL                    40000
+#define ID_XENTRY                               40000
 #define ID_EQUAL                                40001
+#define ID_YENTRY                               40001
 #define ID_STATIC_TEXT                          40002
+#define ID_ADDPOINT                             40003
 #define ID_EDIT_CONTROL                         40003
 #define ID_PLUS                                 40004
 #define ID_MINUS                                40005

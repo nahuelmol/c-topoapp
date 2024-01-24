@@ -107,6 +107,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     HWND hwnd;
     HACCEL hAccelerators;
     MSG Msg;
+    
+    const char ChildPointsClassName[] = "ChildPointsClass";
+
+    WNDCLASSEX childPoints = {};
+    childPoints.cbSize = sizeof(WNDCLASSEX);
+    childPoints.lpfnWndProc = ScreenPoints;
+    childPoints.hInstance = hInstance;
+    childPoints.lpszClassName = ChildPointsClassName;
+    
 
     wc.cbSize        = sizeof(WNDCLASSEX);
     wc.style         = 0;
@@ -123,6 +132,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     wc.hIcon  = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
     wc.hIconSm  = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0);
 
+    if(!RegisterClassEx(&childPoints)){
+        MessageBox(NULL, "Window Registration Failed! child points", "Error!",
+            MB_ICONEXCLAMATION | MB_OK);
+        return 0;
+    }
+
+ 
     if(!RegisterClassEx(&wc)){
         MessageBox(NULL, "Window Registration Failed! wc", "Error!",
             MB_ICONEXCLAMATION | MB_OK);

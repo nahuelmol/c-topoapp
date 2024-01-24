@@ -1,4 +1,4 @@
-
+#include <string>
 char content[1024] = ""; 
 
 void writer(const char *symbol, HWND hwnd){
@@ -71,7 +71,6 @@ BOOL CALLBACK NivelatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
 
     switch(Message){
         case WM_INITDIALOG:
-
         return TRUE;
 
         case WM_COMMAND:
@@ -141,7 +140,6 @@ BOOL CALLBACK ConverterDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
 
     switch(Message){
         case WM_INITDIALOG:
-
         return TRUE;
         
         case WM_COMMAND:
@@ -168,37 +166,6 @@ BOOL CALLBACK ConverterDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam
 
     return TRUE;
 }
-
-/*
-
-float create_substrings (char* complete_string) {
-	using std::cout;
-	using std::endl;
-
-	int count_symbol = frequency(complete_string);	
-	int count_number = count_symbol + 1;
-
-	std::string operations = "";
-	
-	float* numbers = new float[count_number];
-	int k = 0;
-
-	//numbers dimensions should be reviewed more slowly
-	//it works but it returns 1 more in size
-	while(*complete_string != '\0'){
-		if(k < count_number){
-			complete_string = separate_terms(complete_string,&operations,numbers,count_symbol,&k);
-		}
-
-		complete_string++;
-	}
-
-	cout << "operations: " << endl;
-	float result = operate(numbers, operations);
-
-	return result;
-}*/
-
 
 
 BOOL CALLBACK CalculatorDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
@@ -371,18 +338,173 @@ BOOL CALLBACK NotasDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 }
 
 
+void CreateBox(HDC hdc,int x0,int y0,int width,int height,int red,int green,int blue){
+	HBRUSH brush = CreateSolidBrush(RGB(red, green, blue));
+	int xf = x0 + width;
+	int yf = y0 + height;
+
+	RECT rect = {x0,y0,xf,yf};
+	FillRect(hdc,&rect,brush);
+	
+	DeleteObject(brush);
+}
+
+bool point_creation = false;
+RECT FollowerRect = {0,0,0,0};
+
+void PointRegister(HWND hwnd, RECT rect){
+	using std::endl;
+
+	HWND hStatic = GetDlgItem(hwnd, ID_STATIC_TEXT);
+	
+	std::string cursory = std::to_string(rect.left + 4);
+	std::string cursorx = std::to_string(rect.top + 4);
+	std::string message = "x:"+cursorx + "\ny:" + cursory;	
+
+	SetWindowText(hStatic, message.c_str());
+}
+
+void CreatePoint(HWND hwnd, HDC hdc, RECT rect){
+	HBRUSH brush = CreateSolidBrush(RGB(0,255,0));
+	FillRect(hdc, &rect, brush);
+}
+
+LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
+	using std::cout;
+	using std::endl;
+
+	switch(Message){
+		case WM_CREATE:
+			{
+			const char font[] = "Arial";
+			HFONT hfont = CreateFont(14,0,0,0, FW_NORMAL, FALSE, FALSE,
+					FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, 
+					CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
+					DEFAULT_PITCH | FF_DONTCARE, font);
+			SendMessage(hwnd, WM_SETFONT, (WPARAM)hfont, TRUE);
+			//this function sends 'WM_SETFONT' to a window (hwnd)
+			//it sets the hfont as the default for a specfied window
+			}
+			break;
+		case WM_PAINT:
+		{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hwnd, &ps);
+			RECT rect;
+			GetClientRect(hwnd, &rect);
+			FrameRect(hdc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+			
+			if(point_creation){
+				
+				CreatePoint(hwnd, hdc, FollowerRect);
+				point_creation = false;//this does not change anything
+			}
+
+			EndPaint(hwnd, &ps);
+			break;
+		}
+		case WM_LBUTTONDOWN:{
+			point_creation = true;
+
+			POINT cursor;
+			GetCursorPos(&cursor);
+			ScreenToClient(hwnd, &cursor);
+
+			FollowerRect.left = cursor.x - 4;
+			FollowerRect.right = cursor.x + 4;
+			FollowerRect.top = cursor.y - 4;
+			FollowerRect.bottom = cursor.y + 4;
+
+			InvalidateRect(hwnd, NULL, TRUE);
+
+		} break;
+		case WM_MOUSEMOVE:
+		{
+			POINT cursor;
+			GetCursorPos(&cursor);//saves the position in cursor
+			ScreenToClient(hwnd, &cursor);
+			//converts coords to be relative to client
+			std::string xcor = std::to_string(cursor.x);
+			std::string ycor = std::to_string(cursor.y);
+			
+			std::string phrase = "x: " + xcor + "|y: " + ycor;
+			
+			HDC hdc = GetDC(hwnd);
+			RECT clientrect;
+			GetClientRect(hwnd, &clientrect);
+			//saves hwnd dimension into clientrect
+			DrawText(hdc, phrase.c_str(), -1, &clientrect, DT_TOP | DT_LEFT);
+			ReleaseDC(hwnd, hdc);
+		} break;
+
+	}
+	return DefWindowProc(hwnd, Message, wParam, lParam);
+}
+
 BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 	using std::cout;
 	using std::endl;
 	
 	switch(Message){
 		case WM_INITDIALOG:
-		return TRUE;
+			{
+			const char ChildPointsClassName[] = "ChildPointsClass";
+
+			CreateWindowEx(0,ChildPointsClassName, 
+				NULL,WS_CHILD | WS_VISIBLE,
+				150,10,400,400,
+				hwnd,NULL, GetModuleHandle(NULL),NULL);
+			}
+			return TRUE;
+		case WM_DESTROY:
+			PostQuitMessage(0);
+		
 		case WM_SIZE:
 			{
 				cout << "sized" << endl;
 			}
 			break;
+		case WM_COMMAND:
+			{
+			switch(LOWORD(wParam)){
+				case IDCANCEL:
+				cout << "cancel"<< endl;
+				EndDialog(hwnd, IDCANCEL);
+				break;
+				case IDOK:{
+					HWND hStatic = GetDlgItem(hwnd, ID_STATIC_TEXT);
+					HWND Xentry = GetDlgItem(hwnd, ID_XENTRY);
+					HWND Yentry = GetDlgItem(hwnd, ID_YENTRY);
+
+                        		int lenx = GetWindowTextLength(Xentry);
+					int leny = GetWindowTextLength(Yentry);
+
+                        		if(lenx > 0 && leny > 0) {
+                            			char* buffx = new char[lenx + 1];
+						char* buffy = new char[leny +1];
+
+						GetDlgItemText(hwnd, ID_XENTRY, 
+								buffx, lenx+1);
+						std::string xcoor(buffx);
+
+						GetDlgItemText(hwnd, ID_YENTRY, 
+								buffy, leny+1);
+						std::string ycoor(buffy);
+						std::string msg = "x:"+xcoor+"\ny:"+ycoor;
+
+						SetWindowText(hStatic,msg.c_str());
+						
+						delete[] buffx;
+						delete[] buffy;
+					}
+                           	} break; 
+
+				case ID_ADDPOINT:{
+					PointRegister(hwnd, FollowerRect);
+				} break;
+                        }
+
+			} break;
 		default:
 			return FALSE;
 	}
