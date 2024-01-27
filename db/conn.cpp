@@ -1,24 +1,25 @@
-PGconn *conn = PQconnectdb("dbname=mydatabase user=myuser password=mypass host=localhost");
 
-if(PQstatus(conn) != CONNECTION_OK){
-	PQfinish(conn);
-	return 1;
+
+
+std::string dbname = "dbname=TopoApp";
+std::string user = "user=alumno ";
+std::string pass = "password=alumno ";
+std::string host = "host=localhost ";
+std::string port = "port=5432";
+
+PGconn * StartConnection(){
+	std::string connsentence = dbname + user + pass + host + port;
+	PGconn *conn = PQconnectdb(connsentence.c_str());
+
+	if(PQstatus(conn) == CONNECTION_OK){
+		std::cout << "Connection successful" << std::endl;	
+		//return 1;
+	} else {
+		std::cout << "Connection failed" << std::endl;
+
+	}
+
+	return conn;
 }
 
 
-PGresult *res = PQexec(conn, "SELECT * FROM mytable")
-
-if(PQresltStatus(res) != PQRES_TUPLES_OK){
-	PQclear(res);
-	PQfinish(conn);
-	return 1;
-}
-
-
-int rows = PQntuples(res);
-
-for( int i = 0;i < rows; ++i){
-	//here, each row could be process
-}
-
-PQclear(res);

@@ -30,8 +30,6 @@ int main(){
 		spoint.show_coors();
 	}	
 	//();
-	
-
 		
 	return 0;
 }
