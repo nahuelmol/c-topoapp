@@ -3,11 +3,12 @@
 class Point {
 
 	public:
-		Point(float x, float y): x_distance(x), y_distance(y){}
+		Point(float x, float y)
+			:x_distance(x), 
+			y_distance(y){}
 		
 		void show_coors(){
 			cout << "coors" << endl;
-
 			cout << "x: " << x_distance << endl;
 			cout << "y: " << y_distance << endl;
 		}
@@ -20,7 +21,12 @@ class Point {
 
 
 class StratPoint : public Point {
-	
+	//this values are received in deegres
+	//math functions return rads values
+	float alpha_;
+	float az_;
+	float buzareal_;
+
 	//aparent buza (buzap) and rumbo, are profile's direction data that 
 	//must be entered
 	//to draw the profile in that specific direction
@@ -29,11 +35,14 @@ class StratPoint : public Point {
 	
 	//the real buza could be given to calculate the aparent buza
 	//taking into account alpha angle
-	
 	public:
-		StratPoint(float x, float y, float az, float buzareal, float alpha): Point(x,y), az_(az), buzareal_(buzareal), alpha_(alpha) {}
+		StratPoint(float x, float y, float az, float buzareal, float alpha)
+			:Point(x,y), 
+			az_(az), 
+			buzareal_(buzareal), 
+			alpha_(alpha) {}
 		
-		void FindBuzAparent(){
+		void FindAparentBuzz(){
 			float alpha_rads = alpha_ * M_PI / 180.0;
 			float buzareal_rads = buzareal_ * M_PI / 180.0;
 			float buzap_rads = atan(tan(buzareal_rads) / sin(alpha_rads));
@@ -42,63 +51,54 @@ class StratPoint : public Point {
 			cout << "buzap: " << buzap << endl;
 		}	
 
-	private:
-		//this values are received in deegres
-		//math functions return rads values
-		float alpha_;
-		float az_;
-		float buzareal_;
 };
 
 
 
 class Profile {
-
 	//Profile object receives points and add them in lists
 	//later it will gathers the points and build the profile
 	//based on an specific technic
-	
 	public:
-		
-		Profile(Point * point): point_(point){}
+		std::vector<StratPoint> points_;
+
+		Profile(std::vector<StratPoint> points)
+			:points_(points){}
 
 		void DrawProfile(){
 			cout << "The draw should be here" << endl;
 		}
 
 		void ShowGatheredPoints(){
-			//cout << *points << endl;
+			for(auto& point: points_){
+				point.show_coors();
+			}
 		}
-
-	private:
-		Point * point_;
-		Point * points;
+		
+		void warning(){
+			cout << "Building Profile Kraven" << endl;
+		}	
 };
 
 class ProfileWithAngles: public Profile {
 	public:
-		ProfileWithAngles(Point * point, bool end): Profile(point), finalpoint(end){}
+		ProfileWithAngles(std::vector<StratPoint> points): 
+			Profile(points){} 
 
-		void warning(){
-			cout << "building porifle with angles" << endl;
-		}
 
-	private:
-		bool finalpoint;
+
 };
 
-class ProfileKraven : public Profile {
+class ProfileChevron: public Profile {
 	public:
-		ProfileKraven(Point * point, bool end): Profile(point), finalpoint(end) {}
-
-		void warning(){
-			cout << "Building Profile Kraven" << endl;
+		ProfileChevron(std::vector<StratPoint> points)
+			:Profile(points) {}
+		
+		void GotChevronData(){
+			for(auto& point: points_){
+				point.FindAparentBuzz();
+			}
 		}
-
-	private:
-		bool finalpoint;
-
-
 };
 
 

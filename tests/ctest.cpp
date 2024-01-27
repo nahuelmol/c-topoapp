@@ -19,17 +19,17 @@ int main(){
 
 	int many_points = 5;
 	
-	std::vector<Point> points;
+	std::vector<StratPoint> points;
 
 	for(int i = 0;i < many_points;i++){
 		StratPoint point(5.1 + i,4.4 + i,60, 25, 73);
 		points.push_back(point);
 	}
 
-	for(auto& spoint: points) {
-		spoint.show_coors();
-	}	
-	//();
-		
+	ProfileChevron* profile = new ProfileChevron(points); 	
+	
+	profile -> ShowGatheredPoints();
+	profile -> GotChevronData();
+
 	return 0;
 }
