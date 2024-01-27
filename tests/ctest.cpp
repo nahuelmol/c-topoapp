@@ -27,8 +27,9 @@ int main(){
 	}
 
 	ProfileChevron* profile = new ProfileChevron(points); 	
-	profile -> GotChevronData();
+	
 	profile -> ShowGatheredPoints();
+	profile -> GotChevronData();
 
 	return 0;
 }
