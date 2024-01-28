@@ -1,8 +1,6 @@
 
-
-
-std::string dbname = "dbname=TopoApp";
-std::string user = "user=alumno ";
+std::string dbname = "dbname=TopoApp ";
+std::string user = "user=Alumno ";
 std::string pass = "password=alumno ";
 std::string host = "host=localhost ";
 std::string port = "port=5432";

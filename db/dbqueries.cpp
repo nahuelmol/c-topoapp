@@ -13,11 +13,10 @@ bool ProveQueries(PGconn *conn){
 		return true;
 	}
 
-
 	int rows = PQntuples(res);
 
 	for(int i = 0;i < rows; ++i){
-	
+		cout << "thing " << endl; 
 		//here, each row could be process
 	}
 
