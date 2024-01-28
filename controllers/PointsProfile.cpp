@@ -1,6 +1,9 @@
 #include <cmath>
 
 class Point {
+	
+	public:
+		int pointid;
 
 	public:
 		Point(float x, float y)
@@ -60,6 +63,8 @@ class Profile {
 	//later it will gathers the points and build the profile
 	//based on an specific technic
 	public:
+		int profileid;
+			
 		std::vector<StratPoint> points_;
 
 		Profile(std::vector<StratPoint> points)
