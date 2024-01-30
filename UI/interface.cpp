@@ -1,4 +1,15 @@
+#include <iostream>
+
 const char g_szClassName[] = "myWindowClass";
+
+void DebugPrint(const char* message){
+	std::cout << message << std::endl;
+}
+
+void InitializeDebuggerConsole(){
+	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+}
 
 void basic_commands(int res, HWND hwnd){
     using std::cout;
@@ -108,6 +119,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     HACCEL hAccelerators;
     MSG Msg;
     
+    InitializeDebuggerConsole();
+    DebugPrint("hola");
+
     const char ChildPointsClassName[] = "ChildPointsClass";
 
     WNDCLASSEX childPoints = {};

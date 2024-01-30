@@ -22,7 +22,7 @@ run:
 	out/out.exe
 
 test:
-	g++ -I $(CURDIR) -o $(OUTTEST) tests/test.cpp
+	g++  -I $(CURDIR) -o $(OUTTEST) tests/test.cpp
 
 runtest:
 	tests/out/out.exe
@@ -32,4 +32,10 @@ ctest:
 	g++ -I $(CURDIR) -o $(OUTTEST) tests/ctest.cpp
 
 runctest:
+	tests/out/out.exe
+
+dbtest:
+	g++ $(IPG) $(LPG) -I $(CURDIR) -o $(OUTTEST) tests/dbtest.cpp -lpq
+
+dbrun:
 	tests/out/out.exe

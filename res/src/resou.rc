@@ -7,9 +7,6 @@
 #include <richedit.h>
 #include "resource.h"
 
-
-
-
 //
 // Menu resources
 //
@@ -42,16 +39,16 @@ STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VIS
 CAPTION "Dialog"
 FONT 8, "Ms Shell Dlg"
 {
-    EDITTEXT        0, 11, 34, 38, 13, ES_AUTOHSCROLL, WS_EX_LEFT
-    LTEXT           "Scale", 0, 55, 35, 19, 9, SS_LEFT, WS_EX_LEFT
-    EDITTEXT        0, 10, 65, 158, 134, ES_AUTOHSCROLL, WS_EX_LEFT
-    PUSHBUTTON      "Add point", 0, 195, 10, 35, 14, 0, WS_EX_LEFT
-    EDITTEXT        0, 10, 10, 40, 14, ES_AUTOHSCROLL, WS_EX_LEFT
-    PUSHBUTTON      "Cancel", IDCANCEL, 195, 217, 50, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "OK", IDOK, 195, 200, 50, 14, 0, WS_EX_LEFT
-    EDITTEXT        0, 110, 10, 40, 14, ES_AUTOHSCROLL, WS_EX_LEFT
-    LTEXT           "Origin distance", 0, 55, 15, 48, 9, SS_LEFT, WS_EX_LEFT
-    LTEXT           "Cota", 0, 155, 15, 16, 9, SS_LEFT, WS_EX_LEFT
+    EDITTEXT        0, 11, 34, 38, 13, ES_AUTOHSCROLL
+    LTEXT           "Scale", 0, 55, 35, 19, 9, SS_LEFT
+    EDITTEXT        0, 10, 65, 158, 134, ES_AUTOHSCROLL
+    PUSHBUTTON      "Add point", 0, 195, 10, 35, 14
+    EDITTEXT        0, 10, 10, 40, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "Cancel", IDCANCEL, 195, 217, 50, 14
+    PUSHBUTTON      "OK", IDOK, 195, 200, 50, 14
+    EDITTEXT        0, 110, 10, 40, 14, ES_AUTOHSCROLL
+    LTEXT           "Origin distance", 0, 55, 15, 48, 9, SS_LEFT
+    LTEXT           "Cota", 0, 155, 15, 16, 9, SS_LEFT
 }
 
 
@@ -62,27 +59,27 @@ STYLE DS_MODALFRAME | DS_SETFONT | WS_CAPTION | WS_POPUP | WS_SYSMENU
 CAPTION "Calculator"
 FONT 8, "MS Sans Serif"
 {
-    PUSHBUTTON      "0", ID_ZERO, 68, 53, 12, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "CLEAN", ID_CLEAN, 47, 126, 33, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "DEL", ID_DELETE, 13, 126, 27, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      ")", ID_CLOSE, 69, 79, 16, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "(", ID_OPEN, 49, 79, 15, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "-", ID_MINUS, 31, 79, 13, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "+", ID_PLUS, 13, 79, 14, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "=", ID_EQUAL, 14, 104, 25, 14, 0, WS_EX_LEFT
-    LTEXT           "Register", ID_STATIC_TEXT, 112, 81, 70, 58, SS_LEFT, WS_EX_LEFT
-    EDITTEXT        ID_EDIT_CONTROL, 107, 15, 77, 15, ES_AUTOHSCROLL, WS_EX_LEFT
-    PUSHBUTTON      "1", ID_ONE, 11, 14, 13, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "&Cancel", ID_CALCULATOR_CANCEL, 131, 237, 50, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "&OK", ID_CALCULATOR_OK, 131, 220, 50, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "2", ID_TWO, 29, 14, 12, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "3", ID_THREE, 47, 14, 14, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "4", ID_FOUR, 11, 33, 14, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "5", ID_FIVE, 29, 33, 13, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "6", ID_SIX, 48, 33, 13, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "7", ID_SEVEN, 12, 53, 13, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "8", ID_EIGTH, 30, 53, 13, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "9", ID_NINE, 48, 53, 13, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "0", ID_ZERO, 68, 53, 12, 14
+    PUSHBUTTON      "CLEAN", ID_CLEAN, 47, 126, 33, 14
+    PUSHBUTTON      "DEL", ID_DELETE, 13, 126, 27, 14
+    PUSHBUTTON      ")", ID_CLOSE, 69, 79, 16, 14 
+    PUSHBUTTON      "(", ID_OPEN, 49, 79, 15, 14
+    PUSHBUTTON      "-", ID_MINUS, 31, 79, 13, 14
+    PUSHBUTTON      "+", ID_PLUS, 13, 79, 14, 14
+    PUSHBUTTON      "=", ID_EQUAL, 14, 104, 25, 14  
+    LTEXT           "Register", ID_STATIC_TEXT, 112, 81, 70, 58, SS_LEFT
+    EDITTEXT        ID_EDIT_CONTROL, 107, 15, 77, 15, ES_AUTOHSCROLL
+    PUSHBUTTON      "1", ID_ONE, 11, 14, 13, 14
+    PUSHBUTTON      "&Cancel", ID_CALCULATOR_CANCEL, 131, 237, 50, 14 
+    PUSHBUTTON      "&OK", ID_CALCULATOR_OK, 131, 220, 50, 14 
+    PUSHBUTTON      "2", ID_TWO, 29, 14, 12, 14
+    PUSHBUTTON      "3", ID_THREE, 47, 14, 14, 14
+    PUSHBUTTON      "4", ID_FOUR, 11, 33, 14, 14
+    PUSHBUTTON      "5", ID_FIVE, 29, 33, 13, 14
+    PUSHBUTTON      "6", ID_SIX, 48, 33, 13, 14
+    PUSHBUTTON      "7", ID_SEVEN, 12, 53, 13, 14
+    PUSHBUTTON      "8", ID_EIGTH, 30, 53, 13, 14
+    PUSHBUTTON      "9", ID_NINE, 48, 53, 13, 14
 }
 
 
@@ -92,19 +89,19 @@ IDD_DIALOG_CONVERTER DIALOG 0, 0, 337, 218
 STYLE DS_SETFONT | WS_POPUP | WS_SYSMENU
 FONT 8, "Ms Shell Dlg"
 {
-    GROUPBOX        "INPUT", 0, 1, 44, 165, 114, 0, WS_EX_LEFT
-    LTEXT           "Date type", 0, 10, 60, 32, 9, SS_LEFT, WS_EX_LEFT
-    COMBOBOX        ID_OPTION_DT, 65, 55, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT
-    AUTOCHECKBOX    "Simplified", ID_CHS, 195, 75, 45, 8, 0, WS_EX_LEFT
-    GROUPBOX        "OUTPUT", 0, 185, 45, 130, 112, 0, WS_EX_LEFT
-    AUTOCHECKBOX    ".txt file", ID_CHO, 196, 61, 36, 8, 0, WS_EX_LEFT
-    LTEXT           "Please select the filters", 0, 69, 14, 73, 9, SS_LEFT, WS_EX_LEFT
-    PUSHBUTTON      "Add", ID_CONVERTER_ADD, 215, 165, 35, 14, 0, WS_EX_LEFT
-    CONTROL         "", ID_CONVERTER_BAR, PROGRESS_CLASS, 0, 10, 165, 195, 15, WS_EX_LEFT
-    PUSHBUTTON      "Cancel", ID_CONVERTER_CANCEL, 280, 197, 50, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "OK", ID_CONVERTER_OK, 280, 180, 50, 14, 0, WS_EX_LEFT
-    COMBOBOX        ID_OPTION_NT, 65, 80, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT
-    LTEXT           "Numerical type", 0, 10, 85, 48, 9, SS_LEFT, WS_EX_LEFT
+    GROUPBOX        "INPUT", 0, 1, 44, 165, 114
+    LTEXT           "Date type", 0, 10, 60, 32, 9, SS_LEFT
+    COMBOBOX        ID_OPTION_DT, 65, 55, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS
+    AUTOCHECKBOX    "Simplified", ID_CHS, 195, 75, 45, 8
+    GROUPBOX        "OUTPUT", 0, 185, 45, 130, 112 
+    AUTOCHECKBOX    ".txt file", ID_CHO, 196, 61, 36, 8
+    LTEXT           "Please select the filters", 0, 69, 14, 73, 9, SS_LEFT
+    PUSHBUTTON      "Add", ID_CONVERTER_ADD, 215, 165, 35, 14 
+    CONTROL         "", ID_CONVERTER_BAR, PROGRESS_CLASS, 0, 10, 165, 195, 15
+    PUSHBUTTON      "Cancel", ID_CONVERTER_CANCEL, 280, 197, 50, 14
+    DEFPUSHBUTTON   "OK", ID_CONVERTER_OK, 280, 180, 50, 14
+    COMBOBOX        ID_OPTION_NT, 65, 80, 75, 19, CBS_DROPDOWN | CBS_HASSTRINGS
+    LTEXT           "Numerical type", 0, 10, 85, 48, 9, SS_LEFT
 }
 
 
@@ -115,10 +112,10 @@ STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VIS
 CAPTION "Nivelador"
 FONT 8, "Ms Shell Dlg"
 {
-    PUSHBUTTON      "Nivelar", ID_NIVELAR, 127, 188, 46, 14, 0, WS_EX_LEFT
-    EDITTEXT        ID_NOTAS_NIVELADOR, 10, 10, 275, 140, ES_AUTOHSCROLL, WS_EX_LEFT
-    PUSHBUTTON      "Salir del asistente", ID_NIVELADOR_SALIR, 115, 170, 70, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "Guardar perfil", ID_PERFIL_SAVE, 125, 153, 50, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Nivelar", ID_NIVELAR, 127, 188, 46, 14
+    EDITTEXT        ID_NOTAS_NIVELADOR, 10, 10, 275, 140, ES_AUTOHSCROLL
+    PUSHBUTTON      "Salir del asistente", ID_NIVELADOR_SALIR, 115, 170, 70, 14
+    PUSHBUTTON      "Guardar perfil", ID_PERFIL_SAVE, 125, 153, 50, 14
 }
 
 
@@ -129,10 +126,10 @@ STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VIS
 CAPTION "Notas de Topografia"
 FONT 8, "Ms Shell Dlg"
 {
-    PUSHBUTTON      "Borrar pizarra", ID_NOTAS_BORRARPIZARRA, 127, 188, 46, 14, 0, WS_EX_LEFT
-    EDITTEXT        ID_NOTAS_PIZARRA, 10, 10, 275, 140, ES_AUTOHSCROLL, WS_EX_LEFT
-    PUSHBUTTON      "Salir del asistente", ID_NOTAS_SALIRASISTENTE, 115, 170, 70, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "Save note", ID_NOTAS_SAVE, 125, 153, 50, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Borrar pizarra", ID_NOTAS_BORRARPIZARRA, 127, 188, 46, 14
+    EDITTEXT        ID_NOTAS_PIZARRA, 10, 10, 275, 140, ES_AUTOHSCROLL
+    PUSHBUTTON      "Salir del asistente", ID_NOTAS_SALIRASISTENTE, 115, 170, 70, 14
+    DEFPUSHBUTTON   "Save note", ID_NOTAS_SAVE, 125, 153, 50, 14
 }
 
 
@@ -143,18 +140,19 @@ STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VIS
 CAPTION "Points adder"
 FONT 8, "Ms Shell Dlg"
 {
-    LTEXT           "Register", ID_STATIC_TEXT, 5, 130, 55, 110, SS_LEFT, WS_EX_LEFT
-    LTEXT           "X", 0, 5, 15, 8, 9, SS_LEFT, WS_EX_LEFT
-    EDITTEXT        ID_XENTRY, 15, 15, 46, 12, ES_AUTOHSCROLL, WS_EX_LEFT
-    PUSHBUTTON      "Cancel", IDCANCEL, 5, 250, 50, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "Add", IDOK, 5, 55, 55, 14, 0, WS_EX_LEFT
-    EDITTEXT        ID_YENTRY, 15, 35, 46, 12, ES_AUTOHSCROLL, WS_EX_LEFT
-    LTEXT           "Y", 0, 5, 35, 8, 9, SS_LEFT, WS_EX_LEFT
-    DEFPUSHBUTTON   "Add Point", ID_ADDPOINT, 5, 75, 55, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "Clean Screen", ID_CLEAN_SCREEN, 5, 95, 55, 14, 0, WS_EX_LEFT
+    LTEXT           "Register", ID_REGISTER, 5, 130, 55, 110, SS_LEFT
+    LTEXT           "X", 0, 5, 15, 8, 9, SS_LEFT
+    EDITTEXT        ID_XENTRY, 15, 15, 46, 12, ES_AUTOHSCROLL 
+    PUSHBUTTON      "Cancel", IDCANCEL, 5, 250, 50, 14
+    PUSHBUTTON      "Add", IDOK, 5, 55, 55, 14
+    EDITTEXT        ID_YENTRY, 15, 35, 46, 12, ES_AUTOHSCROLL
+    LTEXT           "Y", 0, 5, 35, 8, 9, SS_LEFT
+    PUSHBUTTON   "Add Green Point", ID_ADDPOINT, 5, 75, 55, 12
+    PUSHBUTTON   "Clean Screen", ID_CLEAN_SCREEN, 5, 88, 55, 12
+
+    PUSHBUTTON   "Add Set", ID_ADDSET, 375, 50, 55, 12
+    PUSHBUTTON   "Add Set Point", ID_ADDSETPOINT, 375, 64, 55, 12
 }
-
-
 
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 IDD_DIALOG_POSITIONER DIALOG 0, 0, 397, 282
@@ -162,30 +160,30 @@ STYLE DS_3DLOOK | DS_CENTER | DS_MODALFRAME | DS_SHELLFONT | WS_CAPTION | WS_VIS
 CAPTION "Positioning"
 FONT 8, "Ms Shell Dlg"
 {
-    PUSHBUTTON      "Add with link", 0, 290, 65, 45, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "Add from local storage", 0, 205, 65, 75, 14, 0, WS_EX_LEFT
-    COMBOBOX        0, 205, 45, 137, 16, CBS_DROPDOWN | CBS_HASSTRINGS, WS_EX_LEFT
-    LTEXT           "min 4", 0, 138, 71, 18, 9, SS_LEFT, WS_EX_LEFT
-    EDITTEXT        0, 70, 70, 56, 12, ES_AUTOHSCROLL, WS_EX_LEFT
-    LTEXT           "Type", 0, 5, 5, 17, 9, SS_LEFT, WS_EX_LEFT
+    PUSHBUTTON      "Add with link", 0, 290, 65, 45, 14
+    PUSHBUTTON      "Add from local storage", 0, 205, 65, 75, 14
+    COMBOBOX        0, 205, 45, 137, 16, CBS_DROPDOWN | CBS_HASSTRINGS
+    LTEXT           "min 4", 0, 138, 71, 18, 9, SS_LEFT
+    EDITTEXT        0, 70, 70, 56, 12, ES_AUTOHSCROLL
+    LTEXT           "Type", 0, 5, 5, 17, 9, SS_LEFT
     LISTBOX         0, 15, 120, 160, 82, WS_TABSTOP | WS_VSCROLL | LBS_NOINTEGRALHEIGHT | LBS_SORT | LBS_NOTIFY, WS_EX_LEFT
     AUTOCHECKBOX    "Static", ID_POSITIONER_STATIC, 15, 20, 34, 8, 0, WS_EX_LEFT
-    PUSHBUTTON      "Get out", ID_POSITIONER_CANCEL, 125, 257, 50, 14, 0, WS_EX_LEFT
-    DEFPUSHBUTTON   "Start", ID_POSITIONER_OK, 125, 240, 50, 14, 0, WS_EX_LEFT
+    PUSHBUTTON      "Get out", ID_POSITIONER_CANCEL, 125, 257, 50, 14
+    PUSHBUTTON   "Start", ID_POSITIONER_OK, 125, 240, 50, 14
     AUTOCHECKBOX    "Dynamic", ID_POSITIONER_DYNAMIC, 15, 35, 43, 8, 0, WS_EX_LEFT
     AUTOCHECKBOX    "Absolute", ID_POSITIONER_ABSOLUTE, 15, 70, 43, 8, 0, WS_EX_LEFT
     AUTOCHECKBOX    "Diferential", ID_POSITIONER_DIFFERENTIAL, 15, 85, 47, 8, 0, WS_EX_LEFT
-    LTEXT           "min 4", 0, 138, 86, 18, 9, SS_LEFT, WS_EX_LEFT
-    EDITTEXT        0, 70, 85, 56, 12, ES_AUTOHSCROLL, WS_EX_LEFT
-    LTEXT           "Files needed for porcessing", 0, 205, 10, 87, 9, SS_LEFT, WS_EX_LEFT
-    LTEXT           "Permanent Station (INEGI, IGN, etc)", 0, 205, 30, 115, 9, SS_LEFT, WS_EX_LEFT
-    LTEXT           "My device data files", 0, 205, 110, 64, 9, SS_LEFT, WS_EX_LEFT
-    LTEXT           "Efemerides (satelites position)", 0, 205, 170, 93, 9, SS_LEFT, WS_EX_LEFT
-    LTEXT           "Station", 0, 345, 45, 23, 9, SS_LEFT, WS_EX_LEFT
-    PUSHBUTTON      "Add with link", 0, 290, 125, 45, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "Add from local storage", 0, 205, 125, 75, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "Add with link", 0, 290, 185, 45, 14, 0, WS_EX_LEFT
-    PUSHBUTTON      "Add from local storage", 0, 205, 185, 75, 14, 0, WS_EX_LEFT
+    LTEXT           "min 4", 0, 138, 86, 18, 9, SS_LEFT
+    EDITTEXT        0, 70, 85, 56, 12, ES_AUTOHSCROLL
+    LTEXT           "Files needed for porcessing", 0, 205, 10, 87, 9, SS_LEFT
+    LTEXT           "Permanent Station (INEGI, IGN, etc)", 0, 205, 30, 115, 9, SS_LEFT 
+    LTEXT           "My device data files", 0, 205, 110, 64, 9, SS_LEFT 
+    LTEXT           "Efemerides (satelites position)", 0, 205, 170, 93, 9, SS_LEFT
+    LTEXT           "Station", 0, 345, 45, 23, 9, SS_LEFT 
+    PUSHBUTTON      "Add with link", 0, 290, 125, 45, 14
+    PUSHBUTTON      "Add from local storage", 0, 205, 125, 75, 14
+    PUSHBUTTON      "Add with link", 0, 290, 185, 45, 14
+    PUSHBUTTON      "Add from local storage", 0, 205, 185, 75, 14
 }
 
 

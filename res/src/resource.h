@@ -37,13 +37,9 @@
 #define ID_POSITIONER_ABSOLUTE                  8005
 #define ID_POSITIONER_DIFFERENTIAL              8006
 #define ID_CALCULATOR_CANCEL                    40000
-#define ID_XENTRY                               40000
 #define ID_EQUAL                                40001
-#define ID_YENTRY                               40001
-#define ID_STATIC_TEXT                          40002
-#define ID_ADDPOINT                             40003
+#define ID_STATIC_TEXT 				40002
 #define ID_EDIT_CONTROL                         40003
-#define ID_CLEAN_SCREEN                         40004
 #define ID_PLUS                                 40004
 #define ID_MINUS                                40005
 #define ID_OPEN                                 40006
@@ -60,3 +56,35 @@
 #define ID_NINE                                 40017
 #define ID_EIGTH                                40018
 #define ID_ZERO                                 40019
+
+//Profile dlg
+#define ID_ADDPOINT                             50001
+#define ID_ADDSETPOINT                          50002
+#define ID_ADDSET                           	50003
+#define ID_CLEAN_SCREEN                         50004
+#define ID_XENTRY                               50005
+#define ID_YENTRY                               50006
+#define ID_TYPESET 				50007
+#define ID_REGISTER 	                        50008
+#define ID_CB1 					50009
+#define ID_CB2 					50010
+#define ID_STRATP 				50011
+#define ID_NORMALP 				50012
+#define ID_ANGLEP 				50013
+
+#define ID_STRAT_P1 				50020
+#define ID_STRAT_P2 				50021
+#define ID_STRAT_P3 				50022
+#define ID_STRAT_P4 				50023
+#define ID_STRAT_P5 				50024
+
+#define ID_NORMAL_P1 				50025
+#define ID_NORMAL_P2 				50026
+
+#define ID_ANGLE_P1 				50027
+#define ID_ANGLE_P2 				50028
+#define ID_ANGLE_P3 				50029
+#define ID_ANGLE_P4 				50030
+#define ID_ANGLE_P5 				50031
+
+#define ID_SAVE_POINT 				50032
