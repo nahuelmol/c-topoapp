@@ -56,12 +56,24 @@ class StratPoint : public Point {
 
 };
 
+class NormalPoint: public Point {
+	//the real buza could be given to calculate the aparent buza
+	//taking into account alpha angle
+	public:
+		NormalPoint(float x, float y)
+			:Point(x,y), 
+		
+};
+
 
 
 class Profile {
 	//Profile object receives points and add them in lists
 	//later it will gathers the points and build the profile
 	//based on an specific technic
+	using std::cout;
+	using std::endl;
+
 	public:
 		int profileid;
 			
@@ -81,20 +93,32 @@ class Profile {
 		}
 		
 		void warning(){
-			cout << "Building Profile Kraven" << endl;
+			cout << "Building Profile" << endl;
 		}	
 };
 
-class ProfileWithAngles: public Profile {
+class ProfileAngles: public Profile {
+	using std::cout;
+	using std::endl;
+
 	public:
 		ProfileWithAngles(std::vector<StratPoint> points): 
 			Profile(points){} 
+		
+		void GotAnglesData():
+			for(auto& point: points_){
+				point.FindAparentBuzz();
+			}
 
-
-
+		void warning(){
+			cout << "Building Angles Profile" << endl;
+		}
 };
 
 class ProfileChevron: public Profile {
+	using std::cout;
+	using std::endl;
+
 	public:
 		ProfileChevron(std::vector<StratPoint> points)
 			:Profile(points) {}
@@ -103,6 +127,10 @@ class ProfileChevron: public Profile {
 			for(auto& point: points_){
 				point.FindAparentBuzz();
 			}
+		}
+
+		void warning(){
+			cout << "Building Chevron Profile" << endl;
 		}
 };
 
