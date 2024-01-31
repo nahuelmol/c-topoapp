@@ -455,15 +455,16 @@ LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 	return DefWindowProc(hwnd, Message, wParam, lParam);
 }
 
-void ShowPopup(HWND hwnd){
+void ShowPopup(HWND hwnd, int x, int y, int width, int height, int IDD, std::vector<std::string> options){
+	using std::cout;
+	using std::endl;
 
 	HWND hComboBox = CreateWindow("ComboBox", NULL, WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST,
-			550, 10, 100, 100, hwnd, (HMENU)ID_CB2, NULL, NULL);
+			x, y, width, height, hwnd, (HMENU)IDD, NULL, NULL);
 
-	SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)"Option1");
-	SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)"Option2");
-	SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)"Option3");
-	
+	for(auto& option: options){
+		SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM) option.c_str());
+	}
 }
 
 void PointEntriesMaker(HWND hwnd, std::string label_name, int posH, int ID_TOCALL){
@@ -476,6 +477,20 @@ void PointEntriesMaker(HWND hwnd, std::string label_name, int posH, int ID_TOCAL
 }
 
 
+void PointDataBox(HWND hwnd, int IDD_PBOX){
+	using std::cout;
+	using std::endl;
+
+	HWND HP = GetDlgItem(hwnd ,IDD_PBOX);
+	int len = GetWindowTextLength(HP);
+	
+	char* Pcon = new char[len+1];
+	GetDlgItemText(hwnd, IDD_PBOX, Pcon, len+1);
+
+	cout << "P: " << Pcon << endl;
+	delete[] Pcon;
+
+}
 
 BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 	using std::cout;
@@ -488,24 +503,18 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 	
 	switch(Message){
 		case WM_INITDIALOG:
-			{
-			HWND hComboBox = CreateWindow("ComboBox", NULL, 
-				WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST,
-				5, 170, 100, 100, hwnd, 
-				(HMENU)ID_CB1, NULL, NULL);
-
-			SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)"Prove 1");
-			SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)"Prove 2");
-			SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)"Prove 3");
-
+		{
+			std::vector<std::string> options = {"option1", "option2", "option3"};
+			ShowPopup(hwnd, 5, 170, 100, 100, ID_CB1, options);
+			
 			const char ChildPointsClassName[] = "ChildPointsClass";
-
 			CreateWindowEx(0,ChildPointsClassName, 
 				NULL,WS_CHILD | WS_VISIBLE,
 				150,10,400,400,
 				hwnd,NULL, GetModuleHandle(NULL),NULL);
-			}
+			
 			return TRUE;
+		}
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			return 0;
@@ -534,7 +543,7 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 					int lenx = GetWindowTextLength(Xentry);
 					int leny = GetWindowTextLength(Yentry);
                         		
-                        		if(lenx > 0 && leny > 0) {
+					if(lenx > 0 && leny > 0) {
 						cout << "entering conditional" << endl;
                             			char* buffx = new char[lenx + 1];
 						char* buffy = new char[leny +1];
@@ -553,7 +562,7 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 						delete[] buffx;
 						delete[] buffy;
 					}
-                           	} break;
+                        	} break;
 				case ID_ADDSETPOINT:
 				{
 					HWND CB2_content = GetDlgItem(hwnd,ID_CB2);
@@ -566,7 +575,6 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 						GetDlgItemText(hwnd, ID_CB2, content, len+1);
 						std::string strcon(content);
 						TYPE_SET = strcon;
-						cout << "content: " << TYPE_SET << endl;
 					}
 					
 					if(TYPE_SET == "StratSet"){
@@ -596,8 +604,7 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 							565, 250, 80, 30, hwnd, 
 							(HMENU)ID_SAVE_POINT, 
 							GetModuleHandle(NULL), NULL);
-					
-				} break;
+				} break; 
 				case ID_ADDSET:
 				{
 					cout << "ADDSET clicked" << endl;
@@ -617,12 +624,12 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 							(LPARAM)"NormalSet");
 					SendMessage(hComboBox, CB_ADDSTRING, ID_ANGLEP, 
 							(LPARAM)"AngleSet");
-				} break;
+				} break; 
 				case ID_CLEAN_SCREEN:{
 					//clean the screen at the first click on the windows
 					//later of being this button
 					clean_screen = true;
-				} break;
+				} break; 
 				case ID_ADDPOINT:{
 					PointRegister(hwnd, FollowerRect);
 				} break;
@@ -630,44 +637,14 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 				case ID_SAVE_POINT:
 				{
 					if(TYPE_SET == "StratSet"){
-						HWND HP1 = GetDlgItem(hwnd ,ID_STRAT_P1);
-						HWND HP2 = GetDlgItem(hwnd ,ID_STRAT_P2);
-						HWND HP3 = GetDlgItem(hwnd ,ID_STRAT_P3);
-						HWND HP4 = GetDlgItem(hwnd ,ID_STRAT_P4);
-						HWND HP5 = GetDlgItem(hwnd ,ID_STRAT_P5);
-
-						int lenP1 = GetWindowTextLength(HP1);
-						int lenP2 = GetWindowTextLength(HP1);
-						int lenP3 = GetWindowTextLength(HP1);
-						int lenP4 = GetWindowTextLength(HP1);
-						int lenP5 = GetWindowTextLength(HP1);
-						
-						char* P1con = new char[lenP1+1];
-						char* P2con = new char[lenP2+1];
-						char* P3con = new char[lenP3+1];
-						char* P4con = new char[lenP4+1];
-						char* P5con = new char[lenP5+1];
-
-						GetDlgItemText(hwnd, ID_STRAT_P1, P1con, lenP1+1);
-						GetDlgItemText(hwnd, ID_STRAT_P2, P2con, lenP2+1);
-						GetDlgItemText(hwnd, ID_STRAT_P3, P3con, lenP3+1);
-						GetDlgItemText(hwnd, ID_STRAT_P4, P4con, lenP4+1);
-						GetDlgItemText(hwnd, ID_STRAT_P5, P5con, lenP5+1);
-							
-						cout << "P1: " << P1con << endl;
-						cout << "P2: " << P2con << endl;
-						cout << "P3: " << P3con << endl;
-						cout << "P4: " << P4con << endl;
-						cout << "P5: " << P5con << endl;
-			
-						delete[] P1con;
-						delete[] P2con;
-						delete[] P3con;
-						delete[] P4con;
-						delete[] P5con;
-						
+						PointDataBox(hwnd, ID_STRAT_P1);			
+						PointDataBox(hwnd, ID_STRAT_P2);
+						PointDataBox(hwnd, ID_STRAT_P3);
+						PointDataBox(hwnd, ID_STRAT_P4);
+						PointDataBox(hwnd, ID_STRAT_P5);
 					}
 				} break;
+
 			} break;
 		default:
 			return FALSE;
