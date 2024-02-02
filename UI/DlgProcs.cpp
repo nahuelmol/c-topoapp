@@ -562,7 +562,7 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 						delete[] buffx;
 						delete[] buffy;
 					}
-                        	} break;
+                } break;
 				case ID_ADDSETPOINT:
 				{
 					HWND CB2_content = GetDlgItem(hwnd,ID_CB2);
@@ -571,10 +571,13 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 					if(CB2_content == NULL){
 						cout << "Resource not found" << endl;
 					} else {
+						cout << "Resource exists" << endl;
 						char* content = new char[len+1];
 						GetDlgItemText(hwnd, ID_CB2, content, len+1);
 						std::string strcon(content);
 						TYPE_SET = strcon;
+						cout << "TYPE_SET: " << TYPE_SET << endl;
+						delete[] content;
 					}
 					
 					if(TYPE_SET == "StratSet"){
@@ -597,18 +600,18 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 						PointEntriesMaker(hwnd, "a1", 40, ID_ANGLE_P3);
 						PointEntriesMaker(hwnd, "a2", 60, ID_ANGLE_P4);
 						PointEntriesMaker(hwnd, "a3", 80, ID_ANGLE_P5);
-					}					}
-
-					HWND SaveButton = CreateWindow("BUTTON", "Save point", 
-							WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 
-							565, 250, 80, 30, hwnd, 
-							(HMENU)ID_SAVE_POINT, 
-							GetModuleHandle(NULL), NULL);
+					}					
+						
+					HWND SaveButton = CreateWindow("BUTTON", 
+						"Save point", 
+						WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 
+						565, 250, 80, 30, hwnd, 
+						(HMENU)ID_SAVE_POINT, 
+						GetModuleHandle(NULL), NULL);
 				} break; 
 				case ID_ADDSET:
 				{
 					cout << "ADDSET clicked" << endl;
-
 					HWND hComboBox = CreateWindow("ComboBox", NULL, 
 						WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST,
 						555, 10, 100, 100, hwnd, 
@@ -627,15 +630,17 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 				} break; 
 				case ID_CLEAN_SCREEN:{
 					//clean the screen at the first click on the windows
-					//later of being this button
+					//after this button is clicked 
 					clean_screen = true;
 				} break; 
 				case ID_ADDPOINT:{
+					cout << "ID_ADDPOINT selected" << endl;
 					PointRegister(hwnd, FollowerRect);
 				} break;
 
 				case ID_SAVE_POINT:
 				{
+					cout << "ID_SAVE_POINT selected" << endl;
 					if(TYPE_SET == "StratSet"){
 						PointDataBox(hwnd, ID_STRAT_P1);			
 						PointDataBox(hwnd, ID_STRAT_P2);
@@ -643,9 +648,13 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 						PointDataBox(hwnd, ID_STRAT_P4);
 						PointDataBox(hwnd, ID_STRAT_P5);
 					}
-				} break;
+					//the TYPE_SET does not change despite of being
+					//modified in the ADDSETPOINT button
+					cout << "Type Set: " << TYPE_SET << endl;
 
-			} break;
+				} break;
+			} 
+		} break;
 		default:
 			return FALSE;
 	}
