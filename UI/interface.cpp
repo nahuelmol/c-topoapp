@@ -1,6 +1,6 @@
 #include <iostream>
 
-const char g_szClassName[] = "myWindowClass";
+const char ChildPointsClassName[] = "ChildPointsClass";
 
 void DebugPrint(const char* message){
 	std::cout << message << std::endl;
@@ -120,15 +120,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
     MSG Msg;
     
     InitializeDebuggerConsole();
-    DebugPrint("hola");
 
-    const char ChildPointsClassName[] = "ChildPointsClass";
-
+    const char g_szClassName[] = "myWindowClass";
+    
     WNDCLASSEX childPoints = {};
     childPoints.cbSize = sizeof(WNDCLASSEX);
     childPoints.lpfnWndProc = ScreenPoints;
     childPoints.hInstance = hInstance;
-    childPoints.lpszClassName = ChildPointsClassName;
+    childPoints.lpszClassName = "ScreenProfile";
     
 
     wc.cbSize        = sizeof(WNDCLASSEX);

@@ -88,3 +88,20 @@
 #define ID_ANGLE_P5 				50031
 
 #define ID_SAVE_POINT 				50032
+
+#define ID_SP1_LABEL                60001
+#define ID_SP2_LABEL                60002
+#define ID_SP3_LABEL                60003
+#define ID_SP4_LABEL                60004
+#define ID_SP5_LABEL                60005
+
+#define ID_NP1_LABEL                60006
+#define ID_NP2_LABEL                60007
+
+#define ID_AP1_LABEL                60010
+#define ID_AP2_LABEL                60011
+#define ID_AP3_LABEL                60012
+#define ID_AP4_LABEL                60013
+#define ID_AP5_LABEL                60014
+
+#define WM_CUSTOM_MESSAGE           90000
