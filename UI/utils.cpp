@@ -80,6 +80,9 @@ void PointRegister(HWND hwnd, RECT rect){
 
 
 void CreatePoint(HWND hwnd, HDC hdc, RECT rect){
+    using std::cout;
+    using std::endl;
+
 	try {
         HBRUSH brush = CreateSolidBrush(RGB(0,255,0));
 	    FillRect(hdc, &rect, brush);

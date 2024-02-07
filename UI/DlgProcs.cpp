@@ -353,7 +353,8 @@ LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			SendMessage(hwnd, WM_SETFONT, (WPARAM)hfont, TRUE);
 			//this function sends 'WM_SETFONT' to a window (hwnd)
 			//it sets the hfont as the default for a specfied window
-			}
+            }
+
 			break;
 		case WM_PAINT:
 		{
@@ -364,13 +365,11 @@ LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			FrameRect(hdc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 			
 			if(point_creation){
-                cout << "creating point" << endl;
 				CreatePoint(hwnd, hdc, FollowerRect);
 				point_creation = false;//this does not change anything
 			}
 			
 			if(clean_screen){
-                cout << "cleaning the screen" << endl;
 				CleanScreen(hdc, rect);
 				clean_screen = false;
 			}
@@ -402,7 +401,7 @@ LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			std::string xcor = std::to_string(cursor.x);
 			std::string ycor = std::to_string(cursor.y);
 			
-			std::string phrase = "x: " + xcor + "|y: " + ycor;
+			std::string phrase = "x: " + xcor + "|y: " + ycor + "|";
 			
 			HDC hdc = GetDC(hwnd);
 			RECT clientrect;
@@ -439,11 +438,12 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 			std::vector<std::string> options = {"option1", "option2", "option3"};
 			ShowPopup(hwnd, 5, 170, 100, 100, ID_CB1, options);
 			
-			CreateWindowEx(0,"ScreenProfile", 
+			HWND wnd = CreateWindowEx(0,"ScreenProfile", 
 				"child title",WS_CHILD | WS_VISIBLE,
 				150,10,400,400,
 				hwnd,NULL, GetModuleHandle(NULL),NULL);
 			
+            clean_screen = true;
 			return TRUE;
 		}
 		case WM_DESTROY:
@@ -568,6 +568,7 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
                     EnumChildWindows(hwnd, EnumChildProc, (LPARAM)&targetwnd);
                     
                     if(targetwnd != NULL){
+                        InvalidateRect(targetwnd, NULL, TRUE);
                         SendMessage(targetwnd, WM_PAINT,0,0);
                         cout << "window does exists" << endl;
                     } else {
@@ -610,6 +611,7 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
                     point_creation = true;
 
                     if(targetwnd != NULL){
+                        InvalidateRect(targetwnd,NULL,TRUE);
                         SendMessage(targetwnd, WM_PAINT,0,0);
                         cout << "window does exists" << endl;
                     } else {
