@@ -330,7 +330,7 @@ BOOL CALLBACK NotasDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 bool clean_screen = false;
 bool point_creation = false;
 RECT FollowerRect = {0,0,0,0};
-
+bool point_set_creation = false;
 
 LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 	using std::cout;
@@ -369,6 +369,10 @@ LRESULT CALLBACK ScreenPoints(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				point_creation = false;//this does not change anything
 			}
 			
+            if(point_set_creation){
+                CreatePoint(hwnd, hdc, FollowerRect);
+            }
+
 			if(clean_screen){
 				CleanScreen(hdc, rect);
 				clean_screen = false;
@@ -622,28 +626,50 @@ BOOL CALLBACK PointsDlg(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam){
 
 				case ID_SAVE_POINT:
 				{
-					cout << "ID_SAVE_POINT selected" << endl;
 					if(TYPE_SET == "StratSet"){
-						PointDataBox(hwnd, ID_STRAT_P1, ID_SP1_LABEL);			
-						PointDataBox(hwnd, ID_STRAT_P2, ID_SP2_LABEL);
-						PointDataBox(hwnd, ID_STRAT_P3, ID_SP3_LABEL);
+						point_set_creation = true;
+
+                        RectiPoint(ID_STRAT_P3,hwnd,ID_STRAT_P1,ID_STRAT_P2,FollowerRect);
+                        CleanElement(hwnd, ID_STRAT_P1, ID_SP1_LABEL);
+                        CleanElement(hwnd, ID_STRAT_P2, ID_SP2_LABEL);
+                        
+                        
+
+						/*
+                        PointDataBox(hwnd, ID_STRAT_P3, ID_SP3_LABEL);
 						PointDataBox(hwnd, ID_STRAT_P4, ID_SP4_LABEL);
 						PointDataBox(hwnd, ID_STRAT_P5, ID_SP5_LABEL);
-					}
+                        
+                        HWND targetwnd = NULL;
+                        EnumChildWindows(hwnd, EnumChildProc, (LPARAM)&targetwnd);
+                    
+                        point_creation = true;
+
+                        if(targetwnd != NULL){
+                            InvalidateRect(targetwnd,NULL,TRUE);
+                            SendMessage(targetwnd, WM_PAINT,0,0);
+                            cout << "window does exists" << endl;
+                        } else {
+                            cout << "window does not exists" << endl;
+                        } */  
+
+                    }
 
                     if(TYPE_SET == "NormalSet"){
                         
-						PointDataBox(hwnd, ID_NORMAL_P1, ID_NP1_LABEL);
+						/*PointDataBox(hwnd, ID_NORMAL_P1, ID_NP1_LABEL);
 						PointDataBox(hwnd, ID_NORMAL_P2, ID_NP2_LABEL);
+                        */
                     }
                     
                     if(TYPE_SET == "AngleSet"){
-                        
+                        /*
 						PointDataBox(hwnd, ID_ANGLE_P1, ID_AP1_LABEL);
 						PointDataBox(hwnd, ID_ANGLE_P2, ID_AP2_LABEL);
 						PointDataBox(hwnd, ID_ANGLE_P3, ID_AP3_LABEL);
 						PointDataBox(hwnd, ID_ANGLE_P4, ID_AP4_LABEL);
 						PointDataBox(hwnd, ID_ANGLE_P5, ID_AP5_LABEL);
+                        */
                     }
 			
 				} break;

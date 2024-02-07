@@ -78,6 +78,22 @@ void PointRegister(HWND hwnd, RECT rect){
 	SetWindowText(hStatic, message.c_str());
 }
 
+void CreateLine(HWND wnd, HDC hdc, RECT rect, float angle){
+    using std::cout;
+    using std::endl;
+
+    /*
+    rect.left = -1;
+    rect.right= +1;
+    rect.top = -1;
+    rect.bottom = +1;
+
+    int xwidth= 1;
+    int i = 0;
+    for(int i = 0;i<10;i++){
+        
+    }*/
+}
 
 void CreatePoint(HWND hwnd, HDC hdc, RECT rect){
     using std::cout;
@@ -118,29 +134,82 @@ void PointEntriesMaker(HWND hwnd, std::string label_name, int posH, int ID_BX, i
 	//Add a save point button for the whole set
 }
 
-
-void PointDataBox(HWND hwnd, int ID_BX, int ID_LABEL){
-	using std::cout;
-	using std::endl;
-
-	HWND HP = GetDlgItem(hwnd , ID_BX);
-	int len = GetWindowTextLength(HP);
-	
-	char* Pcon = new char[len+1];
-	GetDlgItemText(hwnd, ID_BX, Pcon, len+1);
-
-	cout << "P: " << Pcon << endl;
-	delete[] Pcon;
+void RectiPoint(int ID_ANGLE,HWND hwnd, int ID_BX, int ID_BY, RECT& rect){
+    //this function just modify the rect element
+    using std::cout;
+    using std::endl;
     
-    HWND HE = GetDlgItem(hwnd, ID_LABEL);
+    HWND ANG = GetDlgItem(hwnd, ID_ANGLE);
+    int lena = GetWindowTextLength(ANG);
 
-    if(HP != NULL){
-        ShowWindow(HP, SW_HIDE);
+    HWND X = GetDlgItem(hwnd, ID_BX);
+	int lenx = GetWindowTextLength(X);
+
+    HWND Y = GetDlgItem(hwnd, ID_BY);
+    int leny = GetWindowTextLength(Y);
+    
+    char* PX = new char[lenx+1];
+	GetDlgItemText(hwnd, ID_BX, PX, lenx+1);
+    
+    char* PY = new char[leny+1];
+	GetDlgItemText(hwnd, ID_BY, PY, leny+1);
+    
+    char* PA = new char[lena+1];
+	GetDlgItemText(hwnd, ID_ANGLE, PA, lena+1);
+    
+    cout << "PA:"<<PA << endl;
+
+    int Pnumx = std::atoi(PX);
+    int Pnumy = std::atoi(PY);
+    float Pnuma = std::strtof(PA, nullptr);
+
+    rect.left = Pnumx-2; 
+    rect.right = Pnumx+2;
+    rect.top = Pnumy-2;
+    rect.bottom = Pnumy+2;
+
+    HWND targetwnd = NULL;
+    EnumChildWindows(hwnd, EnumChildProc, (LPARAM)&targetwnd);
+    
+    if(targetwnd != NULL){
+        InvalidateRect(targetwnd,NULL,TRUE);
+        SendMessage(targetwnd, WM_PAINT,0,0);
+        cout << "window does exists" << endl;
+    } else {
+        cout << "window does not exists" << endl;
     }
+    cout << Pnuma << endl;
+    float Pnuma_rads = M_PI * (1/180.0) * Pnuma;
+    cout << Pnuma_rads << endl;
+    float ite = std::tan(Pnuma_rads); 
+    
+    cout << "ite: " << ite << endl;
 
-    if(HE != NULL){
-        ShowWindow(HE, SW_HIDE);
+    float acu = 0.0;
+    for(int i=0; i<50;i++){
+        rect.left = Pnumx + i -1;
+        rect.right = Pnumx + i +1;
+        rect.top = Pnumy + acu -1;
+        rect.bottom = Pnumy + acu +1;
+
+        InvalidateRect(targetwnd,NULL, TRUE);
+        SendMessage(targetwnd, WM_PAINT, 0,0);
+        acu = acu + ite;
     }
 
 }
+
+void CleanElement(HWND hwnd, int ID_BX, int ID_LABEL){
+	using std::cout;
+	using std::endl;
+
+	HWND BOX = GetDlgItem(hwnd , ID_BX);
+    HWND LBL = GetDlgItem(hwnd, ID_LABEL);
+
+    if(BOX != NULL){ ShowWindow(BOX, SW_HIDE); }
+
+    if(LBL != NULL){ ShowWindow(LBL, SW_HIDE); }
+}
+
+
 
